@@ -161,6 +161,7 @@ document.addEventListener('click', (e) => {
       navMenu.classList.remove('open');
       navToggle.classList.remove('open');
       navToggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('menu-open');
       return;
   }
 
@@ -171,6 +172,7 @@ document.addEventListener('click', (e) => {
     navMenu.classList.remove('open');
     navToggle.classList.remove('open');
     navToggle.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('menu-open');
   }
 });
 
@@ -198,6 +200,7 @@ navToggle.addEventListener('click', () => {
   const open = navMenu.classList.toggle('open');
   navToggle.classList.toggle('open', open);
   navToggle.setAttribute('aria-expanded', String(open));
+  document.body.classList.toggle('menu-open', open);
 });
 
 /* ============================================================
