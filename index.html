@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- PRIMARY SEO -->
+  <title>2nd GEANT4 Workshop | IIT Indore | Oct 1-4, 2026</title>
+  <meta name="title" content="2nd GEANT4 Workshop | IIT Indore | 1-4 October 2026" />
+  <meta name="description" content="2nd National Workshop on GEANT4 and its Applications to High-Energy Physics, Space Astrophysics, and Particle Physics — hosted by DAASE, IIT Indore, 1-4 October 2026." />
+  <meta name="keywords" content="GEANT4 Workshop, IIT Indore, DAASE, High Energy Physics, Space Astrophysics, Particle Physics, GEANT4 India, TIFR, IUCAA, IIST, workshop 2026" />
+  <meta name="author" content="Dept. of Astronomy, Astrophysics and Space Engineering, IIT Indore" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#04070f" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="GEANT4 Workshop 2026" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="event" />
+  <meta property="og:url" content="https://daase.iiti.ac.in/geant4-2026/" />
+  <meta property="og:title" content="2nd GEANT4 Workshop | IIT Indore | 1-4 Oct 2026" />
+  <meta property="og:description" content="Join expert lectures and hands-on tutorials to build expertise in GEANT4 applications for high-energy physics, space astrophysics, and particle physics." />
+  <meta property="og:image" content="./images/hero_bg.jpg" />
+  <meta property="og:locale" content="en_IN" />
+
+  <!-- GEO -->
+  <meta name="geo.region" content="IN-MP" />
+  <meta name="geo.placename" content="Simrol, Indore, Madhya Pradesh, India" />
+  <meta name="geo.position" content="22.5204;75.9207" />
+  <link rel="canonical" href="https://daase.iiti.ac.in/geant4-2026/" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "2nd National Workshop on GEANT4 and its Applications",
+    "startDate": "2026-10-01T09:00:00+05:30",
+    "endDate": "2026-10-04T18:00:00+05:30",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": {
+      "@type": "Place",
+      "name": "DAASE, IIT Indore",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Khandwa Road, Simrol",
+        "addressLocality": "Indore",
+        "addressRegion": "Madhya Pradesh",
+        "postalCode": "453552",
+        "addressCountry": "IN"
+      }
+    },
+    "organizer": {
+      "@type": "EducationalOrganization",
+      "name": "DAASE, IIT Indore",
+      "url": "https://daase.iiti.ac.in"
+    },
+    "description": "Featuring expert lectures and hands-on tutorials, this workshop aims to build expertise in GEANT4 applications for high-energy physics, space astrophysics, and particle physics."
+  }
+  </script>
+
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <!-- ══ COSMIC BACKGROUND CANVAS ═════════════════════════════════════════ -->
+  <canvas id="cosmicCanvas" aria-hidden="true"></canvas>
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- ══ NAVBAR ════════════════════════════════════════════════════════════ -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="#home" class="nav-brand" aria-label="GEANT4 Workshop Home" data-section="home">
+        <div class="nav-logo-ring">
+          <svg viewBox="0 0 40 40" class="nav-icon" aria-hidden="true">
+            <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.6"/>
+            <circle cx="20" cy="20" r="12" stroke="currentColor" stroke-width="1" fill="none" opacity="0.8"/>
+            <circle cx="20" cy="20" r="3" fill="currentColor"/>
+            <line x1="20" y1="2" x2="20" y2="10" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="38" y1="20" x2="30" y2="20" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="20" y1="38" x2="20" y2="30" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="2" y1="20" x2="10" y2="20" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div>
+          <div class="nav-title">GEANT4</div>
+          <div class="nav-sub">Workshop 2026</div>
+        </div>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navMenu">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+      </button>
+
+      <ul class="nav-links" id="navMenu" role="list">
+        <li><button class="nav-link" data-section="home"       id="nav-home">Home</button></li>
+        <li><button class="nav-link" data-section="programme"  id="nav-programme">Programme</button></li>
+        <li><button class="nav-link" data-section="soc"        id="nav-soc">SOC</button></li>
+        <li><button class="nav-link" data-section="loc"        id="nav-loc">LOC</button></li>
+        <li><button class="nav-link" data-section="institutes" id="nav-institutes">Institutes</button></li>
+        <li><button class="nav-link" data-section="venue"      id="nav-venue">Venue</button></li>
+        <li><button class="nav-cta"  data-section="register"   id="nav-register">Register</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ══ SITE WRAPPER — all views live here ═════════════════════════════════ -->
+  <div class="site-wrapper" id="siteWrapper">
+
+    <!-- ── VIEW: HOME ──────────────────────────────────────────────────────-->
+    <div class="view active" id="view-home" data-section-id="home">
+      <div class="hero-section">
+      <div class="hero-bg-img">
+        <img src="./images/hero_bg.jpg" alt="Cosmic background" loading="eager" />
+      </div>
+
+      <div class="orbit-wrap" aria-hidden="true">
+        <div class="orbit orbit-1"></div>
+        <div class="orbit orbit-2"></div>
+        <div class="orbit orbit-3"></div>
+        <div class="orbit-dot dot-1"></div>
+        <div class="orbit-dot dot-2"></div>
+        <div class="orbit-dot dot-3"></div>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          <span>IIT Indore &nbsp;&bull;&nbsp; DAASE</span>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="title-sm">2nd National Workshop on</span>
+          <span class="title-lg gradient-text">GEANT4</span>
+          <span class="title-sm">and its Applications</span>
+        </h1>
+
+        <p class="hero-tagline">
+          High-Energy Physics &nbsp;&middot;&nbsp; Space Astrophysics &nbsp;&middot;&nbsp; Particle Physics
+        </p>
+
+        <div class="hero-meta">
+          <div class="meta-card glass-card" id="hero-dates">
+            <div class="meta-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div>
+              <div class="meta-label">Dates</div>
+              <div class="meta-value">01 &ndash; 04 October, 2026</div>
+            </div>
+          </div>
+          <div class="meta-card glass-card" id="hero-venue">
+            <div class="meta-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="meta-label">Venue</div>
+              <div class="meta-value">DAASE, IIT Indore</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-large" data-section="register" id="hero-register-btn">
+            <span>Register Now</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <button class="btn btn-ghost btn-large" data-section="overview" id="hero-learn-btn">
+            <span>Learn More</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Countdown -->
+      <div class="countdown-bar" id="countdown-bar" role="timer" aria-label="Countdown to workshop">
+        <div class="countdown-inner">
+          <span class="countdown-label">Workshop begins in</span>
+          <div class="countdown-units">
+            <div class="countdown-unit">
+              <span class="count-num" id="cd-days">--</span>
+              <span class="count-lbl">Days</span>
+            </div>
+            <span class="count-sep" aria-hidden="true">:</span>
+            <div class="countdown-unit">
+              <span class="count-num" id="cd-hours">--</span>
+              <span class="count-lbl">Hours</span>
+            </div>
+            <span class="count-sep" aria-hidden="true">:</span>
+            <div class="countdown-unit">
+              <span class="count-num" id="cd-mins">--</span>
+              <span class="count-lbl">Mins</span>
+            </div>
+            <span class="count-sep" aria-hidden="true">:</span>
+            <div class="countdown-unit">
+              <span class="count-num" id="cd-secs">--</span>
+              <span class="count-lbl">Secs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div><!-- /hero-section -->
+
+      <div class="sec-inner" id="overview">
+        <div class="section-header reveal">
+          <span class="section-tag">About the Workshop</span>
+          <h2 class="section-title" id="overview-heading">Overview</h2>
+          <div class="section-divider" aria-hidden="true"></div>
+        </div>
+
+        <div class="overview-grid">
+          <div class="overview-text glass-card reveal">
+            <p class="overview-lead">
+              Featuring expert lectures and hands-on tutorials, this workshop aims to build expertise in
+              <span class="highlight">GEANT4 applications</span> for high-energy physics, space astrophysics,
+              and particle physics, while strengthening the GEANT4 community in India.
+            </p>
+            <p class="overview-body">
+              This interdisciplinary workshop is targeted at graduate students (MSc and PhD), early career
+              researchers, and scientific staff working in high-energy physics and/or X-ray/gamma-ray astronomy.
+              Participants will build and run their own GEANT4 models and apply them to their own research.
+            </p>
+            <p class="overview-body">
+              The main aim is capacity building towards experimental projects in high energy physics,
+              space astrophysics, and particle physics, while gathering a thriving community of GEANT4
+              users across India's premier research institutions.
+            </p>
+            <div class="overview-highlights">
+              <div class="highlight-item" id="ov-lectures">
+                <div class="hl-icon" aria-hidden="true">&#127891;</div>
+                <div>
+                  <strong>Expert Lectures</strong>
+                  <span>By leading national and international researchers</span>
+                </div>
+              </div>
+              <div class="highlight-item" id="ov-tutorials">
+                <div class="hl-icon" aria-hidden="true">&#128187;</div>
+                <div>
+                  <strong>Hands-on Tutorials</strong>
+                  <span>Build and run your own GEANT4 models</span>
+                </div>
+              </div>
+              <div class="highlight-item" id="ov-community">
+                <div class="hl-icon" aria-hidden="true">&#127760;</div>
+                <div>
+                  <strong>Community Building</strong>
+                  <span>Strengthen GEANT4 network across India</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="overview-stats">
+            <div class="stat-card glass-card reveal" id="stat-days">
+              <div class="stat-num gradient-text">4</div>
+              <div class="stat-lbl">Days</div>
+              <div class="stat-desc">Intensive Learning</div>
+            </div>
+            <div class="stat-card glass-card reveal" id="stat-sessions">
+              <div class="stat-num gradient-text">20+</div>
+              <div class="stat-lbl">Sessions</div>
+              <div class="stat-desc">Lectures &amp; Tutorials</div>
+            </div>
+            <div class="stat-card glass-card reveal" id="stat-speakers">
+              <div class="stat-num gradient-text">15+</div>
+              <div class="stat-lbl">Speakers</div>
+              <div class="stat-desc">National &amp; International</div>
+            </div>
+            <div class="stat-card glass-card reveal" id="stat-institutes">
+              <div class="stat-num gradient-text">4+</div>
+              <div class="stat-lbl">Institutes</div>
+              <div class="stat-desc">Participating Together</div>
+            </div>
+
+            <div class="topics-card glass-card reveal" id="topics-card">
+              <h3 class="topics-title">Topics Covered</h3>
+              <ul class="topics-list" role="list">
+                <li>Advanced GEANT4 Simulation Toolkit</li>
+                <li>HEP and Astrophysics Detector Physics</li>
+                <li>Space-based Detector Simulations</li>
+                <li>GEANT4 in X-ray / Gamma-ray Astronomy</li>
+                <li>Particle Physics Applications</li>
+                <li>Hands-on Model Building</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /view-overview -->
+
+
+    <!-- ── VIEW: PROGRAMME ────────────────────────────────────────────────-->
+    <div class="view" id="view-programme" data-section-id="programme">
+      <div class="sec-inner">
+        <div class="section-header reveal">
+          <span class="section-tag">Schedule</span>
+          <h2 class="section-title" id="programme-heading">Scientific Programme</h2>
+          <div class="section-divider" aria-hidden="true"></div>
+        </div>
+
+        <div class="programme-tabs reveal" role="tablist" aria-label="Workshop schedule by day">
+          <button class="tab-btn active" id="tab-day1" role="tab" aria-selected="true" aria-controls="panel-day1">Day 1</button>
+          <button class="tab-btn" id="tab-day2" role="tab" aria-selected="false" aria-controls="panel-day2">Day 2</button>
+          <button class="tab-btn" id="tab-day3" role="tab" aria-selected="false" aria-controls="panel-day3">Day 3</button>
+          <button class="tab-btn" id="tab-day4" role="tab" aria-selected="false" aria-controls="panel-day4">Day 4</button>
+        </div>
+
+        <!-- Day 1 -->
+        <div class="programme-panel active" id="panel-day1" role="tabpanel" aria-labelledby="tab-day1">
+          <div class="day-header reveal"><span class="day-badge">Thursday, 1 October 2026</span><span class="day-theme">Opening and Fundamentals</span></div>
+          <div class="timeline">
+            <div class="tl-item reveal"><div class="tl-time">09:00 &ndash; 09:30</div><div class="tl-content glass-card"><div class="tl-type registration">Registration</div><div class="tl-title">Registration and Welcome Kit Distribution</div></div></div>
+            <div class="tl-item reveal"><div class="tl-time">09:30 &ndash; 10:30</div><div class="tl-content glass-card"><div class="tl-type ceremony">Ceremony</div><div class="tl-title">Inaugural Ceremony</div><div class="tl-speaker">Director, IIT Indore and Distinguished Guests</div></div></div>
+            <div class="tl-item reveal"><div class="tl-time">10:30 &ndash; 11:00</div><div class="tl-content glass-card"><div class="tl-type break">Break</div><div class="tl-title">Tea / Coffee Break and Networking</div></div></div>
+            <div class="tl-item reveal"><div class="tl-time">11:00 &ndash; 12:30</div><div class="tl-content glass-card"><div class="tl-type lecture">Lecture</div><div class="tl-title">Introduction to GEANT4: Core Architecture and Philosophy</div><div class="tl-speaker">Invited Speaker (TBD)</div></div></div>
+            <div class="tl-item reveal"><div class="tl-time">12:30 &ndash; 14:00</div><div class="tl-content glass-card"><div class="tl-type break">Lunch</div><div class="tl-title">Lunch Break</div></div></div>
+            <div class="tl-item reveal"><div class="tl-time">14:00 &ndash; 16:00</div><div class="tl-content glass-card"><div class="tl-type tutorial">Tutorial</div><div class="tl-title">Hands-on Session I: Setting Up Your First GEANT4 Simulation</div><div class="tl-speaker">Tutorial Team</div></div></div>
+            <div class="tl-item reveal"><div class="tl-time">16:00 &ndash; 16:30</div><div class="tl-content glass-card"><div class="tl-type break">Break</div><div class="tl-title">Tea Break</div></div></div>
+            <div class="tl-item reveal"><div class="tl-time">16:30 &ndash; 18:00</div><div class="tl-content glass-card"><div class="tl-type lecture">Lecture</div><div class="tl-title">Physics Processes in GEANT4: EM and Hadronic</div><div class="tl-speaker">Invited Speaker (TBD)</div></div></div>
+          </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="programme-panel" id="panel-day2" role="tabpanel" aria-labelledby="tab-day2">
+          <div class="day-header"><span class="day-badge">Friday, 2 October 2026</span><span class="day-theme">Detector Physics</span></div>
+          <div class="timeline">
+            <div class="tl-item"><div class="tl-time">09:00 &ndash; 10:30</div><div class="tl-content glass-card"><div class="tl-type lecture">Lecture</div><div class="tl-title">HEP Detector Physics Simulations with GEANT4</div><div class="tl-speaker">Invited Speaker (TBD)</div></div></div>
+            <div class="tl-item"><div class="tl-time">10:30 &ndash; 11:00</div><div class="tl-content glass-card"><div class="tl-type break">Break</div><div class="tl-title">Tea / Coffee Break</div></div></div>
+            <div class="tl-item"><div class="tl-time">11:00 &ndash; 12:30</div><div class="tl-content glass-card"><div class="tl-type tutorial">Tutorial</div><div class="tl-title">Hands-on Session II: Detector Geometry and Scoring</div><div class="tl-speaker">Tutorial Team</div></div></div>
+            <div class="tl-item"><div class="tl-time">12:30 &ndash; 14:00</div><div class="tl-content glass-card"><div class="tl-type break">Lunch</div><div class="tl-title">Lunch Break</div></div></div>
+            <div class="tl-item"><div class="tl-time">14:00 &ndash; 16:00</div><div class="tl-content glass-card"><div class="tl-type lecture">Lecture</div><div class="tl-title">X-ray and Gamma-ray Astronomy: GEANT4 Applications</div><div class="tl-speaker">Invited Speaker (TBD)</div></div></div>
+            <div class="tl-item"><div class="tl-time">16:00 &ndash; 18:00</div><div class="tl-content glass-card"><div class="tl-type tutorial">Tutorial</div><div class="tl-title">Hands-on Session III: Astrophysical Detector Simulation</div><div class="tl-speaker">Tutorial Team</div></div></div>
+          </div>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="programme-panel" id="panel-day3" role="tabpanel" aria-labelledby="tab-day3">
+          <div class="day-header"><span class="day-badge">Saturday, 3 October 2026</span><span class="day-theme">Advanced Topics and Applications</span></div>
+          <div class="timeline">
+            <div class="tl-item"><div class="tl-time">09:00 &ndash; 10:30</div><div class="tl-content glass-card"><div class="tl-type lecture">Lecture</div><div class="tl-title">Advanced GEANT4 Functionality: Scoring, Biasing and Parallelism</div><div class="tl-speaker">Invited Speaker (TBD)</div></div></div>
+            <div class="tl-item"><div class="tl-time">10:30 &ndash; 11:00</div><div class="tl-content glass-card"><div class="tl-type break">Break</div><div class="tl-title">Tea / Coffee Break</div></div></div>
+            <div class="tl-item"><div class="tl-time">11:00 &ndash; 13:00</div><div class="tl-content glass-card"><div class="tl-type tutorial">Tutorial</div><div class="tl-title">Hands-on Session IV: Advanced Simulation Techniques</div><div class="tl-speaker">Tutorial Team</div></div></div>
+            <div class="tl-item"><div class="tl-time">13:00 &ndash; 14:00</div><div class="tl-content glass-card"><div class="tl-type break">Lunch</div><div class="tl-title">Lunch Break</div></div></div>
+            <div class="tl-item"><div class="tl-time">14:00 &ndash; 16:00</div><div class="tl-content glass-card"><div class="tl-type lecture">Lecture</div><div class="tl-title">Particle Physics: GEANT4 in Accelerator Environments</div><div class="tl-speaker">Invited Speaker (TBD)</div></div></div>
+            <div class="tl-item"><div class="tl-time">16:00 &ndash; 18:00</div><div class="tl-content glass-card"><div class="tl-type special">Special</div><div class="tl-title">Participant Presentations and Open Discussions</div><div class="tl-speaker">All Participants</div></div></div>
+            <div class="tl-item"><div class="tl-time">19:30 &ndash; 22:00</div><div class="tl-content glass-card"><div class="tl-type social">Social</div><div class="tl-title">Workshop Dinner and Cultural Evening</div></div></div>
+          </div>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="programme-panel" id="panel-day4" role="tabpanel" aria-labelledby="tab-day4">
+          <div class="day-header"><span class="day-badge">Sunday, 4 October 2026</span><span class="day-theme">Project Work and Closing</span></div>
+          <div class="timeline">
+            <div class="tl-item"><div class="tl-time">09:00 &ndash; 11:00</div><div class="tl-content glass-card"><div class="tl-type tutorial">Tutorial</div><div class="tl-title">Hands-on Session V: Open Project Work and Debugging</div><div class="tl-speaker">Tutorial Team</div></div></div>
+            <div class="tl-item"><div class="tl-time">11:00 &ndash; 11:30</div><div class="tl-content glass-card"><div class="tl-type break">Break</div><div class="tl-title">Tea / Coffee Break</div></div></div>
+            <div class="tl-item"><div class="tl-time">11:30 &ndash; 13:00</div><div class="tl-content glass-card"><div class="tl-type special">Presentations</div><div class="tl-title">Final Participant Project Presentations</div><div class="tl-speaker">All Participants</div></div></div>
+            <div class="tl-item"><div class="tl-time">13:00 &ndash; 14:00</div><div class="tl-content glass-card"><div class="tl-type break">Lunch</div><div class="tl-title">Lunch Break</div></div></div>
+            <div class="tl-item"><div class="tl-time">14:00 &ndash; 15:30</div><div class="tl-content glass-card"><div class="tl-type lecture">Panel</div><div class="tl-title">Future of GEANT4 in Indian Research: Panel Discussion</div><div class="tl-speaker">All Speakers and Organisers</div></div></div>
+            <div class="tl-item"><div class="tl-time">15:30 &ndash; 16:30</div><div class="tl-content glass-card"><div class="tl-type ceremony">Ceremony</div><div class="tl-title">Valedictory Ceremony and Certificate Distribution</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /view-programme -->
+
+
+    <!-- ── VIEW: SOC ───────────────────────────────────────────────────────-->
+    <div class="view" id="view-soc" data-section-id="soc">
+      <div class="sec-inner">
+        <div class="section-header reveal">
+          <span class="section-tag">Leadership</span>
+          <h2 class="section-title" id="soc-heading">Scientific Organizing Committee</h2>
+          <div class="section-divider" aria-hidden="true"></div>
+          <p class="section-desc">Eminent researchers and scientists guiding the scientific direction of the workshop.</p>
+        </div>
+        <div class="committee-grid" id="soc-grid">
+          <div class="member-card glass-card reveal" id="soc-1"><div class="member-avatar" aria-hidden="true"><span>PJ</span></div><div><div class="member-name">Prof. Pankaj Jain</div><div class="member-role">Chair, SOC</div><div class="member-affil">IIT Indore</div></div></div>
+          <div class="member-card glass-card reveal" id="soc-2"><div class="member-avatar" aria-hidden="true"><span>AS</span></div><div><div class="member-name">Dr. Archana Sharma</div><div class="member-role">Member</div><div class="member-affil">TIFR, Mumbai</div></div></div>
+          <div class="member-card glass-card reveal" id="soc-3"><div class="member-avatar" aria-hidden="true"><span>RM</span></div><div><div class="member-name">Prof. Ranjeev Misra</div><div class="member-role">Member</div><div class="member-affil">IUCAA, Pune</div></div></div>
+          <div class="member-card glass-card reveal" id="soc-4"><div class="member-avatar" aria-hidden="true"><span>SK</span></div><div><div class="member-name">Dr. Santosh Kumar</div><div class="member-role">Member</div><div class="member-affil">IIST, Thiruvananthapuram</div></div></div>
+          <div class="member-card glass-card reveal" id="soc-5"><div class="member-avatar" aria-hidden="true"><span>DB</span></div><div><div class="member-name">Prof. Dipankar Bhattacharya</div><div class="member-role">Member</div><div class="member-affil">IUCAA, Pune</div></div></div>
+          <div class="member-card glass-card reveal" id="soc-6"><div class="member-avatar" aria-hidden="true"><span>VB</span></div><div><div class="member-name">Dr. Varun Bhalerao</div><div class="member-role">Member</div><div class="member-affil">IIT Bombay</div></div></div>
+          <div class="member-card glass-card reveal" id="soc-7"><div class="member-avatar" aria-hidden="true"><span>SS</span></div><div><div class="member-name">Prof. Subir Sarkar</div><div class="member-role">Member</div><div class="member-affil">TIFR, Mumbai</div></div></div>
+          <div class="member-card glass-card reveal" id="soc-8"><div class="member-avatar" aria-hidden="true"><span>NR</span></div><div><div class="member-name">Dr. Nandita Rana</div><div class="member-role">Member</div><div class="member-affil">IUCAA, Pune</div></div></div>
+        </div>
+      </div>
+    </div><!-- /view-soc -->
+
+
+    <!-- ── VIEW: LOC ───────────────────────────────────────────────────────-->
+    <div class="view" id="view-loc" data-section-id="loc">
+      <div class="sec-inner">
+        <div class="section-header reveal">
+          <span class="section-tag">Organisation</span>
+          <h2 class="section-title" id="loc-heading">Local Organizing Committee</h2>
+          <div class="section-divider" aria-hidden="true"></div>
+          <p class="section-desc">The dedicated team from IIT Indore making this workshop a reality.</p>
+        </div>
+        <div class="committee-grid" id="loc-grid">
+          <div class="member-card glass-card reveal" id="loc-1"><div class="member-avatar loc-avatar" aria-hidden="true"><span>AK</span></div><div><div class="member-name">Prof. Anil Kumar Singal</div><div class="member-role">Chair, LOC</div><div class="member-affil">DAASE, IIT Indore</div></div></div>
+          <div class="member-card glass-card reveal" id="loc-2"><div class="member-avatar loc-avatar" aria-hidden="true"><span>MB</span></div><div><div class="member-name">Dr. Manjari Bagchi</div><div class="member-role">Convenor</div><div class="member-affil">DAASE, IIT Indore</div></div></div>
+          <div class="member-card glass-card reveal" id="loc-3"><div class="member-avatar loc-avatar" aria-hidden="true"><span>RR</span></div><div><div class="member-name">Dr. Ramij Raja</div><div class="member-role">Member</div><div class="member-affil">DAASE, IIT Indore</div></div></div>
+          <div class="member-card glass-card reveal" id="loc-4"><div class="member-avatar loc-avatar" aria-hidden="true"><span>PK</span></div><div><div class="member-name">Dr. Pankaj Kushwaha</div><div class="member-role">Member</div><div class="member-affil">DAASE, IIT Indore</div></div></div>
+          <div class="member-card glass-card reveal" id="loc-5"><div class="member-avatar loc-avatar" aria-hidden="true"><span>TM</span></div><div><div class="member-name">Dr. Tushar Mondal</div><div class="member-role">Member</div><div class="member-affil">DAASE, IIT Indore</div></div></div>
+          <div class="member-card glass-card reveal" id="loc-6"><div class="member-avatar loc-avatar" aria-hidden="true"><span>SB</span></div><div><div class="member-name">Dr. Subhash Bose</div><div class="member-role">Member</div><div class="member-affil">DAASE, IIT Indore</div></div></div>
+        </div>
+      </div>
+    </div><!-- /view-loc -->
+
+
+    <!-- ── VIEW: INSTITUTES ───────────────────────────────────────────────-->
+    <div class="view" id="view-institutes" data-section-id="institutes">
+      <div class="sec-inner">
+        <div class="section-header reveal">
+          <span class="section-tag">Collaboration</span>
+          <h2 class="section-title" id="institutes-heading">Participating Institutes</h2>
+          <div class="section-divider" aria-hidden="true"></div>
+        </div>
+        <div class="institutes-grid">
+          <a href="https://www.iiti.ac.in" target="_blank" rel="noopener noreferrer" class="institute-card glass-card reveal" id="inst-iiti" aria-label="IIT Indore official website">
+            <div class="inst-icon" aria-hidden="true">&#127963;</div>
+            <div class="inst-name">IIT Indore</div>
+            <div class="inst-full">Indian Institute of Technology Indore</div>
+            <div class="inst-loc">Simrol, Madhya Pradesh</div>
+            <div class="inst-tag host">Host Institution</div>
+            <div class="inst-visit-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+              Visit Website
+            </div>
+          </a>
+          <a href="https://www.tifr.res.in" target="_blank" rel="noopener noreferrer" class="institute-card glass-card reveal" id="inst-tifr" aria-label="TIFR official website">
+            <div class="inst-icon" aria-hidden="true">&#128301;</div>
+            <div class="inst-name">TIFR</div>
+            <div class="inst-full">Tata Institute of Fundamental Research</div>
+            <div class="inst-loc">Mumbai, Maharashtra</div>
+            <div class="inst-visit-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+              Visit Website
+            </div>
+          </a>
+          <a href="https://www.iucaa.in" target="_blank" rel="noopener noreferrer" class="institute-card glass-card reveal" id="inst-iucaa" aria-label="IUCAA official website">
+            <div class="inst-icon" aria-hidden="true">&#127756;</div>
+            <div class="inst-name">IUCAA</div>
+            <div class="inst-full">Inter-University Centre for Astronomy and Astrophysics</div>
+            <div class="inst-loc">Pune, Maharashtra</div>
+            <div class="inst-visit-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+              Visit Website
+            </div>
+          </a>
+          <a href="https://www.iist.ac.in" target="_blank" rel="noopener noreferrer" class="institute-card glass-card reveal" id="inst-iist" aria-label="IIST official website">
+            <div class="inst-icon" aria-hidden="true">&#128640;</div>
+            <div class="inst-name">IIST</div>
+            <div class="inst-full">Indian Institute of Space Science and Technology</div>
+            <div class="inst-loc">Thiruvananthapuram, Kerala</div>
+            <div class="inst-visit-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+              Visit Website
+            </div>
+          </a>
+        </div>
+      </div>
+    </div><!-- /view-institutes -->
+
+
+    <!-- ── VIEW: REGISTER ─────────────────────────────────────────────────-->
+    <div class="view" id="view-register" data-section-id="register">
+      <div class="sec-inner">
+        <div class="register-wrapper glass-card reveal">
+          <div class="register-glow" aria-hidden="true"></div>
+          <div class="section-header">
+            <span class="section-tag">Join Us</span>
+            <h2 class="section-title" id="register-heading">Register for the Workshop</h2>
+            <div class="section-divider" aria-hidden="true"></div>
+          </div>
+          <div class="register-info">
+            <div class="register-item reveal" id="reg-who">
+              <div class="reg-icon" aria-hidden="true">&#127919;</div>
+              <div>
+                <strong>Who Should Apply?</strong>
+                <p>MSc and PhD students, early career researchers, and scientific staff in high-energy physics or X-ray/gamma-ray astronomy with basic GEANT4 knowledge.</p>
+              </div>
+            </div>
+            <div class="register-item reveal" id="reg-fee">
+              <div class="reg-icon" aria-hidden="true">&#128204;</div>
+              <div>
+                <strong>Registration Fee</strong>
+                <p>No registration fee. Selected participants receive lodging, boarding, and meals free of cost. Limited travel support may be available.</p>
+              </div>
+            </div>
+            <div class="register-item reveal" id="reg-sel">
+              <div class="reg-icon" aria-hidden="true">&#128203;</div>
+              <div>
+                <strong>Selection Process</strong>
+                <p>Selection is based on your statement of purpose and reference letters. Clearly mention your GEANT4 knowledge level and research application plan.</p>
+              </div>
+            </div>
+            <div class="register-item reveal" id="reg-deadline">
+              <div class="reg-icon" aria-hidden="true">&#9203;</div>
+              <div>
+                <strong>Application Deadline</strong>
+                <p>Registration details and deadlines will be announced shortly. Watch this page for updates.</p>
+              </div>
+            </div>
+          </div>
+          <div class="register-cta">
+            <a href="#" class="btn btn-primary btn-large" id="main-register-btn" onclick="alert('Registration link coming soon! Please check back later.'); return false;">
+              <span>Apply Now</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <p class="register-note">Registration link will be updated when applications open</p>
+          </div>
+        </div>
+      </div>
+    </div><!-- /view-register -->
+
+
+    <!-- ── VIEW: VENUE ────────────────────────────────────────────────────-->
+    <div class="view" id="view-venue" data-section-id="venue">
+      <div class="sec-inner">
+        <div class="section-header reveal">
+          <span class="section-tag">Location</span>
+          <h2 class="section-title" id="venue-heading">Venue and Getting Here</h2>
+          <div class="section-divider" aria-hidden="true"></div>
+        </div>
+
+        <div class="venue-grid">
+          <div class="venue-info">
+            <div class="venue-card glass-card reveal" id="venue-address">
+              <h3 class="venue-card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Address
+              </h3>
+              <address class="venue-address-text">
+                Department of Astronomy, Astrophysics and<br />
+                Space Engineering (DAASE)<br />
+                Indian Institute of Technology Indore<br />
+                Khandwa Road, Simrol<br />
+                Indore, Madhya Pradesh &ndash; 453552<br />
+                India
+              </address>
+              <a href="https://maps.google.com/?q=GWFF+V7+Simrol+Madhya+Pradesh" target="_blank" rel="noopener noreferrer" class="venue-directions-btn" id="venue-directions">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+                Get Directions on Google Maps
+              </a>
+            </div>
+
+            <div class="venue-card glass-card reveal" id="venue-transport">
+              <h3 class="venue-card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11a2 2 0 012 2v3"/><rect x="9" y="11" width="14" height="10" rx="1"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>
+                How to Reach
+              </h3>
+              <ul class="transport-list" role="list">
+                <li><strong>By Air</strong><span>Devi Ahilya Bai Holkar Airport, Indore (approx. 35 km) — well-connected to major cities</span></li>
+                <li><strong>By Train</strong><span>Indore Junction (approx. 30 km) — cabs and autos available to campus</span></li>
+                <li><strong>By Road</strong><span>IIT Indore is on Khandwa Road (NH 47), approx. 25 km from Indore city centre</span></li>
+              </ul>
+            </div>
+
+            <!-- Campus photo slider -->
+            <div class="venue-campus-slider glass-card reveal" id="venue-campus-img">
+              <div class="campus-slide active-slide" id="campus-s1">
+                <img src="./images/iiti_auditorium.jpg" alt="IIT Indore Nalanda Auditorium" class="campus-photo" loading="lazy" />
+              </div>
+              <div class="campus-slide" id="campus-s2">
+                <img src="./images/iiti_night.jpg" alt="IIT Indore Academic Block at night" class="campus-photo" loading="lazy" />
+              </div>
+              <div class="campus-caption">IIT Indore Campus &bull; Simrol, Madhya Pradesh</div>
+            </div>
+          </div>
+
+          <div class="venue-map-wrapper reveal">
+            <div class="map-header glass-card">
+              <div class="map-pin-anim">
+                <div class="pin-dot"></div>
+                <div class="pin-ring pin-ring-1"></div>
+                <div class="pin-ring pin-ring-2"></div>
+              </div>
+              <div>
+                <div class="map-title">IIT Indore — DAASE</div>
+                <div class="map-coords">22.5204° N, 75.9207° E</div>
+              </div>
+            </div>
+            <div class="map-frame-wrapper">
+              <iframe
+                id="google-map-iframe"
+                class="google-map"
+                title="IIT Indore location on Google Maps — Satellite View"
+                src="https://maps.google.com/maps?q=IIT+Indore&t=k&z=15&ie=UTF8&iwloc=&output=embed"
+                width="100%"
+                height="100%"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+            </div>
+            <div class="map-open-link">
+              <a href="https://maps.google.com/?q=Indian+Institute+of+Technology+Indore" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm" id="open-maps-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+                Open in Google Maps
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer is injected dynamically -->
+      </div>
+    </div><!-- /view-venue -->
+
+  </div><!-- /site-wrapper -->
+
+  <!-- Back to Top (scrolls active section to top) -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <!-- ══ FOOTER TEMPLATE ════════════════════════════════════════════════════ -->
+  <template id="footer-template">
+    <footer class="footer" role="contentinfo">
+      <div class="footer-glow" aria-hidden="true"></div>
+      <div class="sec-inner footer-inner">
+        <div class="footer-grid">
+          
+          <div class="footer-brand-col">
+            <div class="nav-logo-ring" style="width:46px;height:46px;padding:6px; margin-bottom:16px;">
+              <svg viewBox="0 0 40 40" style="width:28px;height:28px;color:white;" aria-hidden="true">
+                <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.6"/>
+                <circle cx="20" cy="20" r="3" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="footer-name">GEANT4 Workshop 2026</div>
+            <div class="footer-tagline">DAASE, IIT Indore &bull; October 1&ndash;4, 2026</div>
+            <p class="footer-desc">Empowering the next generation of researchers in High-Energy Physics and Space Astrophysics through hands-on GEANT4 simulation training.</p>
+          </div>
+          
+          <div class="footer-links-col">
+            <div class="footer-col-title">Quick Links</div>
+            <div class="footer-links-grid">
+              <button class="footer-link" data-section="home">Home</button>
+              <button class="footer-link" data-section="programme">Programme</button>
+              <button class="footer-link" data-section="soc">SOC</button>
+              <button class="footer-link" data-section="loc">LOC</button>
+              <button class="footer-link" data-section="institutes">Institutes</button>
+              <button class="footer-link" data-section="venue">Venue</button>
+              <button class="footer-link" data-section="register">Register</button>
+            </div>
+          </div>
+
+          <div class="footer-contact-col">
+            <div class="footer-col-title">Contact Us</div>
+            <a href="mailto:amit.shukla@iiti.ac.in" class="footer-contact-item">
+              <div class="footer-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+              <span>amit.shukla@iiti.ac.in</span>
+            </a>
+            <div class="footer-contact-item">
+              <div class="footer-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></div>
+              <span>DAASE, IIT Indore<br/>Khandwa Road, Simrol<br/>Indore, MP &ndash; 453552</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="footer-divider"></div>
+        <div class="footer-bottom">
+          <p class="footer-copy">&copy; 2026 Dr. Amit Shukla, URJA Lab and Aninda Pratim Roy, All Rights Reserved.</p>
+          <div class="footer-dev">
+            Developed by
+            <a href="https://www.linkedin.com/in/aninda-pratim-roy" target="_blank" rel="noopener noreferrer" class="footer-dev-link" aria-label="Aninda Pratim Roy on LinkedIn">
+              Aninda Pratim Roy
+              <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </template>
+
+  <script src="./script.js"></script>
+</body>
+</html>
