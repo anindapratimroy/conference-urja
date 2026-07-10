@@ -519,16 +519,23 @@ function hidePreloader() {
 function renderSOC(socData) {
   const container = document.getElementById('soc-scroller');
   if (!container) return;
-  let html = '';
+  let baseHtml = '';
   if (!socData || socData.length === 0) {
-    html = `<div class="scroller-card"><div class="scroller-name" style="color:var(--c-text-faint);">To Be Announced</div><div class="scroller-role">Coming Soon</div></div>`;
+    baseHtml = `<div class="scroller-card"><div class="scroller-name" style="color:var(--c-text-faint);">To Be Announced</div><div class="scroller-role">Coming Soon</div></div>`;
   } else {
     socData.forEach(member => {
-      html += `<div class="scroller-card"><div class="scroller-name">${member.name}</div><div class="scroller-role">${member.role}</div></div>`;
+      baseHtml += `<div class="scroller-card"><div class="scroller-name">${member.name}</div><div class="scroller-role">${member.role}</div></div>`;
     });
   }
-  // Duplicate for seamless scroll
-  container.innerHTML = html + html;
+  
+  const itemCount = (socData && socData.length > 0) ? socData.length : 1;
+  const repetitions = Math.max(2, Math.ceil(12 / itemCount));
+  
+  let html = '';
+  for(let i=0; i<repetitions; i++) {
+    html += baseHtml;
+  }
+  container.innerHTML = html;
   
   // Force browser to recalculate height and restart animation
   container.style.animation = 'none';
@@ -539,16 +546,23 @@ function renderSOC(socData) {
 function renderLOC(locData) {
   const container = document.getElementById('loc-scroller');
   if (!container) return;
-  let html = '';
+  let baseHtml = '';
   if (!locData || locData.length === 0) {
-    html = `<div class="scroller-card"><div class="scroller-name" style="color:var(--c-text-faint);">To Be Announced</div><div class="scroller-role">Coming Soon</div></div>`;
+    baseHtml = `<div class="scroller-card"><div class="scroller-name" style="color:var(--c-text-faint);">To Be Announced</div><div class="scroller-role">Coming Soon</div></div>`;
   } else {
     locData.forEach(member => {
-      html += `<div class="scroller-card"><div class="scroller-name">${member.name}</div><div class="scroller-role">${member.role}</div></div>`;
+      baseHtml += `<div class="scroller-card"><div class="scroller-name">${member.name}</div><div class="scroller-role">${member.role}</div></div>`;
     });
   }
-  // Duplicate for seamless scroll
-  container.innerHTML = html + html;
+  
+  const itemCount = (locData && locData.length > 0) ? locData.length : 1;
+  const repetitions = Math.max(2, Math.ceil(12 / itemCount));
+  
+  let html = '';
+  for(let i=0; i<repetitions; i++) {
+    html += baseHtml;
+  }
+  container.innerHTML = html;
 
   // Force browser to recalculate height and restart animation
   container.style.animation = 'none';
@@ -559,18 +573,25 @@ function renderLOC(locData) {
 function renderInstitutes(instData) {
   const container = document.getElementById('institutes-scroller');
   if (!container) return;
-  let html = '';
+  let baseHtml = '';
   if (!instData || instData.length === 0) {
-    html = `<div class="inst-marquee-card"><div class="inst-name" style="color:var(--c-text-faint);">More Institutes</div><div class="inst-loc">Coming Soon...</div></div>`;
+    baseHtml = `<div class="inst-marquee-card"><div class="inst-name" style="color:var(--c-text-faint);">More Institutes</div><div class="inst-loc">Coming Soon...</div></div>`;
   } else {
     instData.forEach(inst => {
       const logoUrl = inst.logo || './images/iiti_logo.svg';
       const website = inst.website || '#';
-      html += `<a href="${website}" target="_blank" rel="noopener noreferrer" class="inst-marquee-card"><img src="${logoUrl}" class="inst-logo-img" alt="${inst.name} Logo"><div class="inst-name">${inst.name}</div><div class="inst-loc">Participating Institute</div></a>`;
+      baseHtml += `<a href="${website}" target="_blank" rel="noopener noreferrer" class="inst-marquee-card"><img src="${logoUrl}" class="inst-logo-img" alt="${inst.name} Logo"><div class="inst-name">${inst.name}</div><div class="inst-loc">Participating Institute</div></a>`;
     });
   }
-  // Duplicate for seamless scroll
-  container.innerHTML = html + html;
+  
+  const itemCount = (instData && instData.length > 0) ? instData.length : 1;
+  const repetitions = Math.max(2, Math.ceil(15 / itemCount));
+  
+  let html = '';
+  for(let i=0; i<repetitions; i++) {
+    html += baseHtml;
+  }
+  container.innerHTML = html;
 
   // Force browser to recalculate width and restart animation
   container.style.animation = 'none';
