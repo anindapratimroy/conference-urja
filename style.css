@@ -882,14 +882,23 @@ body {
   box-shadow: 0 0 20px var(--c-blue);
   animation: pulseCore 2s ease-in-out infinite;
 }
+.loader-text-title {
+  color: #ffffff;
+  font-size: 1.2rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 800;
+  margin-bottom: 8px;
+  animation: fadeUp 0.8s ease both;
+  text-shadow: 0 0 15px rgba(255,255,255,0.4);
+}
 .loader-text {
-  color: var(--c-text);
-  font-size: 0.95rem;
+  color: var(--c-text-muted);
+  font-size: 0.85rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 600;
   animation: pulseText 1.5s infinite;
-  text-shadow: 0 0 10px rgba(255,255,255,0.3);
 }
 
 @keyframes spin { 100% { transform: rotate(360deg); } }
