@@ -525,6 +525,11 @@ function renderSOC(socData) {
   });
   // Duplicate for seamless scroll
   container.innerHTML = html + html;
+  
+  // Force browser to recalculate height and restart animation
+  container.style.animation = 'none';
+  void container.offsetHeight; 
+  container.style.animation = '';
 }
 
 function renderLOC(locData) {
@@ -536,6 +541,11 @@ function renderLOC(locData) {
   });
   // Duplicate for seamless scroll
   container.innerHTML = html + html;
+
+  // Force browser to recalculate height and restart animation
+  container.style.animation = 'none';
+  void container.offsetHeight; 
+  container.style.animation = '';
 }
 
 function renderInstitutes(instData) {
@@ -549,6 +559,11 @@ function renderInstitutes(instData) {
   });
   // Duplicate for seamless scroll
   container.innerHTML = html + html;
+
+  // Force browser to recalculate width and restart animation
+  container.style.animation = 'none';
+  void container.offsetWidth; 
+  container.style.animation = '';
 }
 
 async function fetchDynamicData() {
@@ -567,14 +582,9 @@ async function fetchDynamicData() {
 // Start the fetch immediately
 const fetchPromise = fetchDynamicData();
 
-// Hide preloader logic
-window.addEventListener('load', () => {
-  // Set a maximum time for the preloader to show (2.5 seconds)
-  const timeoutPromise = new Promise(resolve => setTimeout(resolve, 2500));
-  
-  // Hide preloader as soon as either data loads OR 2.5 seconds passes
-  Promise.race([fetchPromise, timeoutPromise]).then(() => {
-    hidePreloader();
-  });
+// Hide preloader as soon as either data loads OR 2.5 seconds passes
+const timeoutPromise = new Promise(resolve => setTimeout(resolve, 2500));
+Promise.race([fetchPromise, timeoutPromise]).then(() => {
+  hidePreloader();
 });
 
