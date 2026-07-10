@@ -520,9 +520,13 @@ function renderSOC(socData) {
   const container = document.getElementById('soc-scroller');
   if (!container) return;
   let html = '';
-  socData.forEach(member => {
-    html += `<div class="scroller-card"><div class="scroller-name">${member.name}</div><div class="scroller-role">${member.role}</div></div>`;
-  });
+  if (!socData || socData.length === 0) {
+    html = `<div class="scroller-card"><div class="scroller-name" style="color:var(--c-text-faint);">To Be Announced</div><div class="scroller-role">Coming Soon</div></div>`;
+  } else {
+    socData.forEach(member => {
+      html += `<div class="scroller-card"><div class="scroller-name">${member.name}</div><div class="scroller-role">${member.role}</div></div>`;
+    });
+  }
   // Duplicate for seamless scroll
   container.innerHTML = html + html;
   
@@ -536,9 +540,13 @@ function renderLOC(locData) {
   const container = document.getElementById('loc-scroller');
   if (!container) return;
   let html = '';
-  locData.forEach(member => {
-    html += `<div class="scroller-card"><div class="scroller-name">${member.name}</div><div class="scroller-role">${member.role}</div></div>`;
-  });
+  if (!locData || locData.length === 0) {
+    html = `<div class="scroller-card"><div class="scroller-name" style="color:var(--c-text-faint);">To Be Announced</div><div class="scroller-role">Coming Soon</div></div>`;
+  } else {
+    locData.forEach(member => {
+      html += `<div class="scroller-card"><div class="scroller-name">${member.name}</div><div class="scroller-role">${member.role}</div></div>`;
+    });
+  }
   // Duplicate for seamless scroll
   container.innerHTML = html + html;
 
@@ -552,11 +560,15 @@ function renderInstitutes(instData) {
   const container = document.getElementById('institutes-scroller');
   if (!container) return;
   let html = '';
-  instData.forEach(inst => {
-    const logoUrl = inst.logo || './images/iiti_logo.svg';
-    const website = inst.website || '#';
-    html += `<a href="${website}" target="_blank" rel="noopener noreferrer" class="inst-marquee-card"><img src="${logoUrl}" class="inst-logo-img" alt="${inst.name} Logo"><div class="inst-name">${inst.name}</div><div class="inst-loc">Participating Institute</div></a>`;
-  });
+  if (!instData || instData.length === 0) {
+    html = `<div class="inst-marquee-card"><div class="inst-name" style="color:var(--c-text-faint);">More Institutes</div><div class="inst-loc">Coming Soon...</div></div>`;
+  } else {
+    instData.forEach(inst => {
+      const logoUrl = inst.logo || './images/iiti_logo.svg';
+      const website = inst.website || '#';
+      html += `<a href="${website}" target="_blank" rel="noopener noreferrer" class="inst-marquee-card"><img src="${logoUrl}" class="inst-logo-img" alt="${inst.name} Logo"><div class="inst-name">${inst.name}</div><div class="inst-loc">Participating Institute</div></a>`;
+    });
+  }
   // Duplicate for seamless scroll
   container.innerHTML = html + html;
 
@@ -571,11 +583,14 @@ async function fetchDynamicData() {
     const response = await fetch(API_URL);
     if (!response.ok) throw new Error("Network response was not ok");
     const data = await response.json();
-    if (data.soc && data.soc.length > 0) renderSOC(data.soc);
-    if (data.loc && data.loc.length > 0) renderLOC(data.loc);
-    if (data.institutes && data.institutes.length > 0) renderInstitutes(data.institutes);
+    renderSOC(data.soc || []);
+    renderLOC(data.loc || []);
+    renderInstitutes(data.institutes || []);
   } catch (error) {
     console.error("Failed to fetch dynamic data:", error);
+    renderSOC([]);
+    renderLOC([]);
+    renderInstitutes([]);
   }
 }
 
