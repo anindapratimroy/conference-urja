@@ -71,6 +71,11 @@
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
+  <!-- PRELOADER -->
+  <div id="preloader">
+    <div class="loader-spinner"></div>
+    <div class="loader-text">Loading Cosmos...</div>
+  </div>
 
   <!-- ══ COSMIC BACKGROUND CANVAS ═════════════════════════════════════════ -->
   <canvas id="cosmicCanvas" aria-hidden="true"></canvas>
@@ -126,24 +131,8 @@
           <div class="scroller-subtitle">Scientific Organizing Committee</div>
         </div>
         <div class="scroller-vertical" aria-hidden="true">
-          <div class="scroller-vertical-inner">
-            <div class="scroller-card"><div class="scroller-name">Prof. Pankaj Jain</div><div class="scroller-role">Chair, SOC</div></div>
-            <div class="scroller-card"><div class="scroller-name">Dr. Archana Sharma</div><div class="scroller-role">Member</div></div>
-            <div class="scroller-card"><div class="scroller-name">Prof. Ranjeev Misra</div><div class="scroller-role">Member</div></div>
-            <div class="scroller-card"><div class="scroller-name">Dr. Santosh Kumar</div><div class="scroller-role">Member</div></div>
-            <div class="scroller-card"><div class="scroller-name">Prof. Dipankar Bhattacharya</div><div class="scroller-role">Member</div></div>
-            <div class="scroller-card"><div class="scroller-name">Dr. Varun Bhalerao</div><div class="scroller-role">Member</div></div>
-            <div class="scroller-card"><div class="scroller-name">Prof. Subir Sarkar</div><div class="scroller-role">Member</div></div>
-            <div class="scroller-card"><div class="scroller-name">Dr. Nandita Rana</div><div class="scroller-role">Member</div></div>
-            <!-- Duplicate for seamless scrolling -->
-            <div class="scroller-card"><div class="scroller-name">Prof. Pankaj Jain</div><div class="scroller-role">Chair, SOC</div></div>
-            <div class="scroller-card"><div class="scroller-name">Dr. Archana Sharma</div><div class="scroller-role">Member</div></div>
-            <div class="scroller-card"><div class="scroller-name">Prof. Ranjeev Misra</div><div class="scroller-role">Member</div></div>
-            <div class="scroller-card"><div class="scroller-name">Dr. Santosh Kumar</div><div class="scroller-role">Member</div></div>
-            <div class="scroller-card"><div class="scroller-name">Prof. Dipankar Bhattacharya</div><div class="scroller-role">Member</div></div>
-            <div class="scroller-card"><div class="scroller-name">Dr. Varun Bhalerao</div><div class="scroller-role">Member</div></div>
-            <div class="scroller-card"><div class="scroller-name">Prof. Subir Sarkar</div><div class="scroller-role">Member</div></div>
-            <div class="scroller-card"><div class="scroller-name">Dr. Nandita Rana</div><div class="scroller-role">Member</div></div>
+          <div class="scroller-vertical-inner" id="soc-scroller">
+            <!-- Dynamic content will be injected here -->
           </div>
         </div>
       </div>
@@ -155,20 +144,8 @@
           <div class="scroller-subtitle">Local Organizing Committee</div>
         </div>
         <div class="scroller-vertical" aria-hidden="true" style="animation-direction: reverse;">
-          <div class="scroller-vertical-inner">
-            <div class="scroller-card"><div class="scroller-name">Prof. Anil Kumar Singal</div><div class="scroller-role">Chair, LOC</div></div>
-            <div class="scroller-card"><div class="scroller-name">Dr. Manjari Bagchi</div><div class="scroller-role">Convenor</div></div>
-            <div class="scroller-card"><div class="scroller-name">Dr. Ramij Raja</div><div class="scroller-role">Member</div></div>
-            <div class="scroller-card"><div class="scroller-name">Dr. Pankaj Kushwaha</div><div class="scroller-role">Member</div></div>
-            <div class="scroller-card"><div class="scroller-name">Dr. Tushar Mondal</div><div class="scroller-role">Member</div></div>
-            <div class="scroller-card"><div class="scroller-name">Dr. Subhash Bose</div><div class="scroller-role">Member</div></div>
-            <!-- Duplicate for seamless scrolling -->
-            <div class="scroller-card"><div class="scroller-name">Prof. Anil Kumar Singal</div><div class="scroller-role">Chair, LOC</div></div>
-            <div class="scroller-card"><div class="scroller-name">Dr. Manjari Bagchi</div><div class="scroller-role">Convenor</div></div>
-            <div class="scroller-card"><div class="scroller-name">Dr. Ramij Raja</div><div class="scroller-role">Member</div></div>
-            <div class="scroller-card"><div class="scroller-name">Dr. Pankaj Kushwaha</div><div class="scroller-role">Member</div></div>
-            <div class="scroller-card"><div class="scroller-name">Dr. Tushar Mondal</div><div class="scroller-role">Member</div></div>
-            <div class="scroller-card"><div class="scroller-name">Dr. Subhash Bose</div><div class="scroller-role">Member</div></div>
+          <div class="scroller-vertical-inner" id="loc-scroller">
+            <!-- Dynamic content will be injected here -->
           </div>
         </div>
       </div>
@@ -588,17 +565,8 @@
     <div class="institutes-marquee-container">
       <div class="institutes-marquee-heading">Participating Institutes</div>
       <div class="institutes-marquee">
-        <div class="institutes-marquee-inner">
-          <a href="https://www.iiti.ac.in" target="_blank" rel="noopener noreferrer" class="inst-marquee-card"><img src="./images/iiti_logo.svg" class="inst-logo-img" alt="IIT Indore Logo"><div class="inst-name">IIT Indore</div><div class="inst-loc">Simrol, Madhya Pradesh</div></a>
-          <a href="https://www.tifr.res.in" target="_blank" rel="noopener noreferrer" class="inst-marquee-card"><img src="./images/tifr_logo.svg" class="inst-logo-img" alt="TIFR Logo"><div class="inst-name">TIFR</div><div class="inst-loc">Mumbai, Maharashtra</div></a>
-          <a href="https://www.iucaa.in" target="_blank" rel="noopener noreferrer" class="inst-marquee-card"><img src="./images/iucaa_logo.svg" class="inst-logo-img" alt="IUCAA Logo"><div class="inst-name">IUCAA</div><div class="inst-loc">Pune, Maharashtra</div></a>
-          <a href="https://www.iist.ac.in" target="_blank" rel="noopener noreferrer" class="inst-marquee-card"><img src="./images/iist_logo.svg" class="inst-logo-img" alt="IIST Logo"><div class="inst-name">IIST</div><div class="inst-loc">Thiruvananthapuram, Kerala</div></a>
-          
-          <!-- Duplicate for loop -->
-          <a href="https://www.iiti.ac.in" target="_blank" rel="noopener noreferrer" class="inst-marquee-card"><img src="./images/iiti_logo.svg" class="inst-logo-img" alt="IIT Indore Logo"><div class="inst-name">IIT Indore</div><div class="inst-loc">Simrol, Madhya Pradesh</div></a>
-          <a href="https://www.tifr.res.in" target="_blank" rel="noopener noreferrer" class="inst-marquee-card"><img src="./images/tifr_logo.svg" class="inst-logo-img" alt="TIFR Logo"><div class="inst-name">TIFR</div><div class="inst-loc">Mumbai, Maharashtra</div></a>
-          <a href="https://www.iucaa.in" target="_blank" rel="noopener noreferrer" class="inst-marquee-card"><img src="./images/iucaa_logo.svg" class="inst-logo-img" alt="IUCAA Logo"><div class="inst-name">IUCAA</div><div class="inst-loc">Pune, Maharashtra</div></a>
-          <a href="https://www.iist.ac.in" target="_blank" rel="noopener noreferrer" class="inst-marquee-card"><img src="./images/iist_logo.svg" class="inst-logo-img" alt="IIST Logo"><div class="inst-name">IIST</div><div class="inst-loc">Thiruvananthapuram, Kerala</div></a>
+        <div class="institutes-marquee-inner" id="institutes-scroller">
+          <!-- Dynamic content will be injected here -->
         </div>
       </div>
     </div>

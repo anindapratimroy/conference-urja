@@ -505,3 +505,76 @@ document.addEventListener('DOMContentLoaded', () => {
   updateUI();
   triggerReveals(views[startIdx]);
 });
+
+/* ============================================================
+   DYNAMIC DATA FETCHING & PRELOADER
+   ============================================================ */
+const API_URL = "https://script.google.com/macros/s/AKfycbyEXU1-MBP3WSJiIw-VpgE8VpZVQjBot2Otwb5lTCN9lke878GTh8WKJ1NpmqcjvZOf/exec";
+const preloader = document.getElementById('preloader');
+
+function hidePreloader() {
+  if (preloader) preloader.classList.add('hide');
+}
+
+function renderSOC(socData) {
+  const container = document.getElementById('soc-scroller');
+  if (!container) return;
+  let html = '';
+  socData.forEach(member => {
+    html += `<div class="scroller-card"><div class="scroller-name">${member.name}</div><div class="scroller-role">${member.role}</div></div>`;
+  });
+  // Duplicate for seamless scroll
+  container.innerHTML = html + html;
+}
+
+function renderLOC(locData) {
+  const container = document.getElementById('loc-scroller');
+  if (!container) return;
+  let html = '';
+  locData.forEach(member => {
+    html += `<div class="scroller-card"><div class="scroller-name">${member.name}</div><div class="scroller-role">${member.role}</div></div>`;
+  });
+  // Duplicate for seamless scroll
+  container.innerHTML = html + html;
+}
+
+function renderInstitutes(instData) {
+  const container = document.getElementById('institutes-scroller');
+  if (!container) return;
+  let html = '';
+  instData.forEach(inst => {
+    const logoUrl = inst.logo || './images/iiti_logo.svg';
+    const website = inst.website || '#';
+    html += `<a href="${website}" target="_blank" rel="noopener noreferrer" class="inst-marquee-card"><img src="${logoUrl}" class="inst-logo-img" alt="${inst.name} Logo"><div class="inst-name">${inst.name}</div><div class="inst-loc">Participating Institute</div></a>`;
+  });
+  // Duplicate for seamless scroll
+  container.innerHTML = html + html;
+}
+
+async function fetchDynamicData() {
+  try {
+    const response = await fetch(API_URL);
+    if (!response.ok) throw new Error("Network response was not ok");
+    const data = await response.json();
+    if (data.soc && data.soc.length > 0) renderSOC(data.soc);
+    if (data.loc && data.loc.length > 0) renderLOC(data.loc);
+    if (data.institutes && data.institutes.length > 0) renderInstitutes(data.institutes);
+  } catch (error) {
+    console.error("Failed to fetch dynamic data:", error);
+  }
+}
+
+// Start the fetch immediately
+const fetchPromise = fetchDynamicData();
+
+// Hide preloader logic
+window.addEventListener('load', () => {
+  // Set a maximum time for the preloader to show (2.5 seconds)
+  const timeoutPromise = new Promise(resolve => setTimeout(resolve, 2500));
+  
+  // Hide preloader as soon as either data loads OR 2.5 seconds passes
+  Promise.race([fetchPromise, timeoutPromise]).then(() => {
+    hidePreloader();
+  });
+});
+
