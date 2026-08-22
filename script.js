@@ -11,10 +11,8 @@
    ============================================================ */
 const SECTIONS = [
   { id: 'home',       label: 'Home' },
+  { id: 'speakers',   label: 'Speakers' },
   { id: 'programme',  label: 'Programme' },
-  { id: 'soc',        label: 'SOC' },
-  { id: 'loc',        label: 'LOC' },
-  { id: 'institutes', label: 'Institutes' },
   { id: 'venue',      label: 'Venue' },
   { id: 'register',   label: 'Register' },
 ];
@@ -89,14 +87,52 @@ function navigateTo(targetIdx, pushState = true) {
   }, 520);
 }
 
+let scrollObserver = null;
+
+function initScrollObserver() {
+  if (scrollObserver) scrollObserver.disconnect();
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px 0px -30px 0px',
+    threshold: 0.05
+  };
+
+  scrollObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        
+        // Lazy load iframe if present
+        const iframe = entry.target.querySelector('iframe[data-src]') || (entry.target.tagName === 'IFRAME' && entry.target.dataset.src ? entry.target : null);
+        if (iframe && iframe.dataset.src) {
+          iframe.src = iframe.dataset.src;
+          delete iframe.dataset.src;
+        }
+        obs.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.reveal').forEach(el => scrollObserver.observe(el));
+}
+
 function updateUI() {
   const idx = currentIdx;
 
   // Nav links
   document.querySelectorAll('[data-section]').forEach(el => {
-    // "overview" button in nav might still exist in some older cache, handle it gracefully
     el.classList.toggle('active', el.dataset.section === SECTIONS[idx]?.id);
   });
+
+  // Lazy load venue map if venue active
+  if (SECTIONS[idx]?.id === 'venue') {
+    const iframe = document.getElementById('google-map-iframe');
+    if (iframe && iframe.dataset.src) {
+      iframe.src = iframe.dataset.src;
+      delete iframe.dataset.src;
+    }
+  }
 
   // Trigger reveal animations in active view
   triggerReveals(views[idx]);
@@ -109,15 +145,17 @@ function updateUI() {
 }
 
 /* ============================================================
-   SCROLL REVEAL
+   SCROLL REVEAL (Fall-back & observer initializer)
    ============================================================ */
 function triggerReveals(view) {
   if (!view) return;
-  const items = view.querySelectorAll('.reveal:not(.visible)');
-  items.forEach((el, i) => {
-    setTimeout(() => {
+  const items = view.querySelectorAll('.reveal');
+  items.forEach(el => {
+    if (scrollObserver) {
+      scrollObserver.observe(el);
+    } else {
       el.classList.add('visible');
-    }, i * 60);
+    }
   });
 }
 
@@ -241,7 +279,7 @@ function initCampusSlider() {
    COUNTDOWN TIMER
    ============================================================ */
 function initCountdown() {
-  const target = new Date('2026-10-01T09:00:00+05:30').getTime();
+  const target = new Date('2026-11-12T09:00:00+05:30').getTime();
 
   function tick() {
     const diff = target - Date.now();
@@ -250,27 +288,23 @@ function initCountdown() {
       document.getElementById('cd-hours').textContent = '00';
       document.getElementById('cd-mins').textContent  = '00';
       document.getElementById('cd-secs').textContent  = '00';
-      if(document.getElementById('cd-msecs')) document.getElementById('cd-msecs').textContent = '000';
       return;
     }
     const d = Math.floor(diff / 86400000);
     const h = Math.floor((diff % 86400000) / 3600000);
     const m = Math.floor((diff % 3600000) / 60000);
     const s = Math.floor((diff % 60000) / 1000);
-    const ms = Math.floor(diff % 1000);
     const dEl = document.getElementById('cd-days');
     if (dEl) {
       dEl.textContent  = String(d).padStart(2, '0');
       document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
       document.getElementById('cd-mins').textContent  = String(m).padStart(2, '0');
       document.getElementById('cd-secs').textContent  = String(s).padStart(2, '0');
-      const msEl = document.getElementById('cd-msecs');
-      if(msEl) msEl.textContent = String(ms).padStart(3, '0');
     }
   }
 
   tick();
-  setInterval(tick, 10);
+  setInterval(tick, 1000);
 }
 
 /* ============================================================
@@ -502,15 +536,51 @@ document.addEventListener('DOMContentLoaded', () => {
     history.replaceState({ sectionIdx: startIdx }, '', '#' + SECTIONS[startIdx].id);
   }
 
+  // Initialize ScrollObserver for lazy reveals
+  initScrollObserver();
+  
+  // Hydrate data instantly from cache/default to eliminate loading delay
+  loadInitialData();
+  
   updateUI();
-  triggerReveals(views[startIdx]);
+
+  // Hide preloader quickly after DOM is interactive
+  setTimeout(hidePreloader, 300);
 });
 
 /* ============================================================
-   DYNAMIC DATA FETCHING & PRELOADER
+   PERSISTENT CACHING & INSTANT DATA HYDRATION
    ============================================================ */
-const API_URL = "https://script.google.com/macros/s/AKfycbyEXU1-MBP3WSJiIw-VpgE8VpZVQjBot2Otwb5lTCN9lke878GTh8WKJ1NpmqcjvZOf/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbxeeLobD2arY5YcmOc9ec28X4pj77WLgpLiKGacfKUhQ3xf_YmqH1tExM3SNrci0RqV/exec";
+const CACHE_KEY = "geant4_website_cache_v2";
 const preloader = document.getElementById('preloader');
+
+const DEFAULT_DATA = {
+  soc: [
+    { name: "Prof. Pankaj Jain", role: "Chair, SOC" },
+    { name: "Dr. Archana Sharma", role: "Member" },
+    { name: "Prof. Ranjeev Misra", role: "Member" },
+    { name: "Dr. Santosh Kumar", role: "Member" },
+    { name: "Prof. Dipankar Bhattacharya", role: "Member" },
+    { name: "Dr. Varun Bhalerao", role: "Member" },
+    { name: "Prof. Subir Sarkar", role: "Member" },
+    { name: "Dr. Nandita Rana", role: "Member" }
+  ],
+  loc: [
+    { name: "Prof. Anil Kumar Singal", role: "Chair, LOC" },
+    { name: "Dr. Manjari Bagchi", role: "Convenor" },
+    { name: "Dr. Ramij Raja", role: "Member" },
+    { name: "Dr. Pankaj Kushwaha", role: "Member" },
+    { name: "Dr. Tushar Mondal", role: "Member" },
+    { name: "Dr. Subhash Bose", role: "Member" }
+  ],
+  institutes: [
+    { name: "IIT Indore", logo: "./images/iiti_logo.png", website: "https://www.iiti.ac.in" },
+    { name: "TIFR", logo: "./images/tifr_logo.png", website: "https://www.tifr.res.in" },
+    { name: "IUCAA", logo: "./images/iucaa_logo.png", website: "https://www.iucaa.in" },
+    { name: "IIST", logo: "./images/iist_logo.png", website: "https://www.iist.ac.in" }
+  ]
+};
 
 function hidePreloader() {
   if (preloader) preloader.classList.add('hide');
@@ -537,7 +607,6 @@ function renderSOC(socData) {
   }
   container.innerHTML = html;
   
-  // Force browser to recalculate height and restart animation
   container.style.animation = 'none';
   void container.offsetHeight; 
   container.style.animation = '';
@@ -564,39 +633,179 @@ function renderLOC(locData) {
   }
   container.innerHTML = html;
 
-  // Force browser to recalculate height and restart animation
   container.style.animation = 'none';
   void container.offsetHeight; 
   container.style.animation = '';
 }
 
+function getFallbackLogo(instName) {
+  const nameLower = (instName || '').toLowerCase();
+  if (nameLower.includes('iit') || nameLower.includes('indore')) return './images/iiti_logo.png';
+  if (nameLower.includes('tifr') || nameLower.includes('tata')) return './images/tifr_logo.png';
+  if (nameLower.includes('iucaa') || nameLower.includes('pune')) return './images/iucaa_logo.png';
+  if (nameLower.includes('iist') || nameLower.includes('space') || nameLower.includes('thiruvananthapuram')) return './images/iist_logo.png';
+  return './images/iiti_logo.svg';
+}
+
 function renderInstitutes(instData) {
-  const container = document.getElementById('institutes-scroller');
-  if (!container) return;
-  let baseHtml = '';
+  const containers = document.querySelectorAll('.institutes-marquee-inner');
+  if (!containers || !containers.length) return;
+
   if (!instData || instData.length === 0) {
-    baseHtml = `<div class="inst-marquee-card"><div class="inst-name" style="color:var(--c-text-faint);">More Institutes</div><div class="inst-loc">Coming Soon...</div></div>`;
-  } else {
-    instData.forEach(inst => {
-      const logoUrl = inst.logo || './images/iiti_logo.svg';
-      const website = inst.website || '#';
-      baseHtml += `<a href="${website}" target="_blank" rel="noopener noreferrer" class="inst-marquee-card"><img src="${logoUrl}" class="inst-logo-img" alt="${inst.name} Logo"><div class="inst-name">${inst.name}</div><div class="inst-loc">Participating Institute</div></a>`;
-    });
+    return;
   }
+
+  let baseHtml = '';
+  instData.forEach(inst => {
+    const instName = typeof inst === 'string' ? inst : (inst.name || inst.institution || inst.institute || 'Participating Institute');
+    const customLogo = typeof inst === 'object' ? (inst.logo || inst.logo_url || inst.image || inst.icon) : null;
+    const fallbackLogo = getFallbackLogo(instName);
+    const logoUrl = customLogo || fallbackLogo;
+    const website = (typeof inst === 'object' && inst.website) ? inst.website : '#';
+
+    baseHtml += `
+      <a href="${website}" target="_blank" rel="noopener noreferrer" class="inst-marquee-card">
+        <img src="${logoUrl}" class="inst-logo-img" alt="${instName} Logo" onerror="this.onerror=null;this.src='${fallbackLogo}';">
+        <div class="inst-name">${instName}</div>
+      </a>`;
+  });
   
-  const itemCount = (instData && instData.length > 0) ? instData.length : 1;
-  const repetitions = Math.max(2, Math.ceil(15 / itemCount));
+  const itemCount = instData.length;
+  const repetitions = Math.max(2, Math.ceil(12 / itemCount));
   
   let html = '';
   for(let i=0; i<repetitions; i++) {
     html += baseHtml;
   }
-  container.innerHTML = html;
 
-  // Force browser to recalculate width and restart animation
-  container.style.animation = 'none';
-  void container.offsetWidth; 
-  container.style.animation = '';
+  containers.forEach(container => {
+    container.innerHTML = html;
+    container.style.animation = 'none';
+    void container.offsetWidth; 
+    container.style.animation = '';
+  });
+}
+
+function formatTextWithLineBreaks(str) {
+  if (!str || typeof str !== 'string') return str;
+  if (/<br\s*\/?>|<p>/i.test(str)) return str;
+  return str.replace(/\r\n|\r|\n/g, '<br />');
+}
+
+function renderOverview(overviewData) {
+  if (!overviewData) return;
+  const leadEl  = document.getElementById('overview-lead');
+  const body1El = document.getElementById('overview-body-1');
+  const body2El = document.getElementById('overview-body-2');
+
+  const processText = (txt) => {
+    if (!txt) return '';
+    return typeof txt === 'string' ? formatTextWithLineBreaks(txt) : txt;
+  };
+
+  if (typeof overviewData === 'string') {
+    const paragraphs = overviewData.split(/\n\s*\n/);
+    if (paragraphs.length >= 1 && leadEl)  { leadEl.innerHTML  = processText(paragraphs[0]); leadEl.style.display = ''; }
+    if (paragraphs.length >= 2 && body1El) { body1El.innerHTML = processText(paragraphs[1]); body1El.style.display = ''; } else if (body1El && paragraphs.length === 1) { body1El.style.display = 'none'; }
+    if (paragraphs.length >= 3 && body2El) { body2El.innerHTML = processText(paragraphs[2]); body2El.style.display = ''; } else if (body2El && paragraphs.length <= 2) { body2El.style.display = 'none'; }
+  } else if (Array.isArray(overviewData)) {
+    if (overviewData[0] && leadEl)  { leadEl.innerHTML  = processText(overviewData[0]); leadEl.style.display = ''; }
+    if (overviewData[1] && body1El) { body1El.innerHTML = processText(overviewData[1]); body1El.style.display = ''; } else if (body1El && !overviewData[1]) { body1El.style.display = 'none'; }
+    if (overviewData[2] && body2El) { body2El.innerHTML = processText(overviewData[2]); body2El.style.display = ''; } else if (body2El && !overviewData[2]) { body2El.style.display = 'none'; }
+  } else if (typeof overviewData === 'object') {
+    const lead  = overviewData.lead || overviewData.overview_lead || overviewData.title || overviewData.text;
+    const body1 = overviewData.body1 || overviewData.paragraph1 || overviewData.overview_body1;
+    const body2 = overviewData.body2 || overviewData.paragraph2 || overviewData.overview_body2;
+
+    if (lead && leadEl)   { leadEl.innerHTML  = processText(lead); leadEl.style.display = ''; }
+    if (body1 && body1El) { body1El.innerHTML = processText(body1); body1El.style.display = ''; } else if (body1El && !body1) { body1El.style.display = 'none'; }
+    if (body2 && body2El) { body2El.innerHTML = processText(body2); body2El.style.display = ''; } else if (body2El && !body2) { body2El.style.display = 'none'; }
+  }
+}
+
+function renderSpeakers(speakersData) {
+  const container = document.getElementById('speakers-scroller');
+  if (!container) return;
+
+  if (!speakersData || speakersData.length === 0) {
+    container.innerHTML = `
+      <div class="speaker-card glass-card">
+        <div class="speaker-avatar-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="speaker-badge">Invited Speaker</div>
+        <div class="speaker-name" style="color:var(--c-text-faint);">To Be Announced</div>
+        <div class="speaker-affil">Invited Delegate / Speaker</div>
+        <div class="speaker-topic">Details Coming Soon</div>
+      </div>
+      <div class="speaker-card glass-card">
+        <div class="speaker-avatar-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="speaker-badge">Invited Speaker</div>
+        <div class="speaker-name" style="color:var(--c-text-faint);">To Be Announced</div>
+        <div class="speaker-affil">Invited Delegate / Speaker</div>
+        <div class="speaker-topic">Details Coming Soon</div>
+      </div>
+      <div class="speaker-card glass-card">
+        <div class="speaker-avatar-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="speaker-badge">Invited Speaker</div>
+        <div class="speaker-name" style="color:var(--c-text-faint);">To Be Announced</div>
+        <div class="speaker-affil">Invited Delegate / Speaker</div>
+        <div class="speaker-topic">Details Coming Soon</div>
+      </div>
+      <div class="speaker-card glass-card">
+        <div class="speaker-avatar-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="speaker-badge">Invited Speaker</div>
+        <div class="speaker-name" style="color:var(--c-text-faint);">To Be Announced</div>
+        <div class="speaker-affil">Invited Delegate / Speaker</div>
+        <div class="speaker-topic">Details Coming Soon</div>
+      </div>
+    `;
+    return;
+  }
+
+  let html = '';
+  speakersData.forEach(spk => {
+    const name = spk.name || 'Distinguished Speaker';
+    const affil = spk.affiliation || spk.institution || spk.institute || spk.role || 'Invited Delegate';
+    const topic = spk.topic || spk.talk_title || spk.title || '';
+    const photo = spk.photo || spk.image || spk.avatar || '';
+
+    html += `
+      <div class="speaker-card glass-card">
+        ${photo ? `<div class="speaker-avatar-img"><img src="${photo}" alt="${name}" loading="lazy"/></div>` : `<div class="speaker-avatar-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>`}
+        <div class="speaker-badge">Invited Delegate</div>
+        <div class="speaker-name">${name}</div>
+        <div class="speaker-affil">${affil}</div>
+        ${topic ? `<div class="speaker-topic">${topic}</div>` : ''}
+      </div>
+    `;
+  });
+  container.innerHTML = html;
+}
+
+function renderAllData(data) {
+  if (!data) return;
+  renderSOC(data.soc || []);
+  renderLOC(data.loc || []);
+  if (data.institutes && data.institutes.length > 0) {
+    renderInstitutes(data.institutes);
+  }
+  if (data.overview) {
+    renderOverview(data.overview);
+  }
+  renderSpeakers(data.speakers || data.delegates || data.invited_speakers || data.invitedSpeakers || data.invited_delegates || []);
+}
+
+function loadInitialData() {
+  try {
+    const cachedStr = localStorage.getItem(CACHE_KEY);
+    if (cachedStr) {
+      const cached = JSON.parse(cachedStr);
+      renderAllData(cached);
+      return;
+    }
+  } catch (e) {
+    console.warn("Failed to load cached data:", e);
+  }
+  renderAllData(DEFAULT_DATA);
 }
 
 async function fetchDynamicData() {
@@ -604,23 +813,17 @@ async function fetchDynamicData() {
     const response = await fetch(API_URL);
     if (!response.ok) throw new Error("Network response was not ok");
     const data = await response.json();
-    renderSOC(data.soc || []);
-    renderLOC(data.loc || []);
-    renderInstitutes(data.institutes || []);
+    
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+    } catch (e) {}
+
+    renderAllData(data);
   } catch (error) {
-    console.error("Failed to fetch dynamic data:", error);
-    renderSOC([]);
-    renderLOC([]);
-    renderInstitutes([]);
+    console.error("Failed to fetch dynamic data from API:", error);
   }
 }
 
-// Start the fetch immediately
-const fetchPromise = fetchDynamicData();
-
-// Hide preloader as soon as either data loads OR 2.5 seconds passes
-const timeoutPromise = new Promise(resolve => setTimeout(resolve, 2500));
-Promise.race([fetchPromise, timeoutPromise]).then(() => {
-  hidePreloader();
-});
+// Start dynamic fetch in background
+fetchDynamicData();
 
