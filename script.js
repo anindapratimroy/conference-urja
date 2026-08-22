@@ -198,7 +198,9 @@ document.addEventListener('click', (e) => {
               views[homeIdx].scrollTo({ top: overviewSection.offsetTop, behavior: 'smooth' });
           }
       }, currentIdx !== homeIdx ? 550 : 0);
-      
+      return;
+  }
+
   const idx = SECTIONS.findIndex(s => s.id === sectionId);
   if (idx >= 0) {
     navigateTo(idx);
