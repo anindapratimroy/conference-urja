@@ -26,9 +26,9 @@ let isAnimating = false;
 /* ============================================================
    ELEMENTS
    ============================================================ */
+const navbar       = document.getElementById('navbar');
 const views        = SECTIONS.map(s => document.getElementById(`view-${s.id}`));
 const backToTop    = document.getElementById('backToTop');
-const navToggle    = document.getElementById('navToggle');
 const navMenu      = document.getElementById('navMenu');
 
 /* ============================================================
@@ -120,10 +120,19 @@ function initScrollObserver() {
 function updateUI() {
   const idx = currentIdx;
 
-  // Nav links
+  // Nav links active state
   document.querySelectorAll('[data-section]').forEach(el => {
     el.classList.toggle('active', el.dataset.section === SECTIONS[idx]?.id);
   });
+
+  // Navbar scrolled & hidden state for active view
+  const activeView = views[idx];
+  if (activeView) {
+    const st = activeView.scrollTop;
+    navbar?.classList.toggle('nav-scrolled', st > 20);
+    navbar?.classList.remove('nav-hidden');
+    backToTop?.classList.toggle('visible', st > 200);
+  }
 
   // Lazy load venue map if venue active
   if (SECTIONS[idx]?.id === 'venue') {
@@ -136,12 +145,6 @@ function updateUI() {
 
   // Trigger reveal animations in active view
   triggerReveals(views[idx]);
-
-  // Back to top — show if active view is scrolled
-  const activeView = views[idx];
-  if (activeView) {
-    backToTop.classList.toggle('visible', activeView.scrollTop > 200);
-  }
 }
 
 /* ============================================================
@@ -196,21 +199,9 @@ document.addEventListener('click', (e) => {
           }
       }, currentIdx !== homeIdx ? 550 : 0);
       
-      navMenu.classList.remove('open');
-      navToggle.classList.remove('open');
-      navToggle.setAttribute('aria-expanded', 'false');
-      document.body.classList.remove('menu-open');
-      return;
-  }
-
   const idx = SECTIONS.findIndex(s => s.id === sectionId);
   if (idx >= 0) {
     navigateTo(idx);
-    // Close mobile menu
-    navMenu.classList.remove('open');
-    navToggle.classList.remove('open');
-    navToggle.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('menu-open');
   }
 });
 
@@ -222,23 +213,34 @@ backToTop.addEventListener('click', () => {
 });
 
 /* ============================================================
-   BACK TO TOP VISIBILITY on section scroll
+   NAVBAR SCROLL (Floating Pill & Auto-Hide per section)
    ============================================================ */
-SECTIONS.forEach((s, i) => {
-  views[i]?.addEventListener('scroll', () => {
-    if (i !== currentIdx) return;
-    backToTop.classList.toggle('visible', views[i].scrollTop > 200);
-  }, { passive: true });
-});
+const lastScrollTopMap = {};
 
-/* ============================================================
-   HAMBURGER MENU
-   ============================================================ */
-navToggle.addEventListener('click', () => {
-  const open = navMenu.classList.toggle('open');
-  navToggle.classList.toggle('open', open);
-  navToggle.setAttribute('aria-expanded', String(open));
-  document.body.classList.toggle('menu-open', open);
+SECTIONS.forEach((s, i) => {
+  const view = views[i];
+  if (!view) return;
+
+  view.addEventListener('scroll', () => {
+    if (i !== currentIdx) return;
+    const st = view.scrollTop;
+    const lastSt = lastScrollTopMap[i] || 0;
+
+    // Toggle floating glass pill
+    navbar?.classList.toggle('nav-scrolled', st > 20);
+
+    // Auto-hide on scroll down, reveal on scroll up
+    if (st > 100 && st > lastSt) {
+      navbar?.classList.add('nav-hidden');
+    } else if (st < lastSt || st <= 100) {
+      navbar?.classList.remove('nav-hidden');
+    }
+
+    lastScrollTopMap[i] = st;
+
+    // Back to top visibility
+    backToTop?.classList.toggle('visible', st > 200);
+  }, { passive: true });
 });
 
 /* ============================================================
