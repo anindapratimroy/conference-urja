@@ -470,6 +470,49 @@ body {
 .programme-panel { display: none; }
 .programme-panel.active { display: block; animation: fadeUp 0.35s ease; }
 
+/* ── SCHEDULE COMING SOON ─────────────────────────────────────────────────── */
+.schedule-coming-soon {
+  position: relative; overflow: hidden;
+  padding: 60px 40px;
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 20px;
+  border-radius: var(--r-xl);
+  margin-top: 8px;
+}
+.scs-glow {
+  position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+  width: 500px; height: 200px;
+  background: radial-gradient(ellipse, rgba(96,165,250,0.12), transparent 70%);
+  pointer-events: none;
+}
+.scs-icon svg { width: 72px; height: 72px; filter: drop-shadow(0 0 16px rgba(96,165,250,0.4)); }
+.scs-badge {
+  display: inline-block;
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--c-blue-lt);
+  background: rgba(96,165,250,0.1); border: 1px solid rgba(96,165,250,0.25);
+  padding: 4px 14px; border-radius: 999px;
+}
+.scs-title {
+  font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800;
+  color: var(--c-text); margin: 0;
+  background: linear-gradient(135deg, #fff 30%, var(--c-blue-lt));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.scs-desc {
+  max-width: 600px; color: var(--c-text-body);
+  font-size: 0.97rem; line-height: 1.7; margin: 0;
+}
+.scs-pills { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.scs-pill {
+  font-size: 0.82rem; font-weight: 600;
+  color: var(--c-text-muted);
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  padding: 6px 16px; border-radius: 999px;
+  transition: all var(--t-fast);
+}
+.scs-pill:hover { color: var(--c-blue-lt); border-color: var(--c-blue-lt); }
+
 .day-header { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 20px; }
 .day-badge { display: inline-block; background: rgba(59,130,246,0.13); border: 1px solid rgba(59,130,246,0.32); color: var(--c-blue-lt); padding: 7px 18px; border-radius: var(--r-pill); font-size: 0.9rem; font-weight: 700; }
 .day-theme { font-size: 1.1rem; color: var(--c-text-body); font-weight: 500; }
