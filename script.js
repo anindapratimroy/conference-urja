@@ -29,6 +29,7 @@ let isAnimating = false;
 const navbar       = document.getElementById('navbar');
 const views        = SECTIONS.map(s => document.getElementById(`view-${s.id}`));
 const backToTop    = document.getElementById('backToTop');
+const navToggle    = document.getElementById('navToggle');
 const navMenu      = document.getElementById('navMenu');
 
 /* ============================================================
@@ -204,6 +205,7 @@ document.addEventListener('click', (e) => {
   const idx = SECTIONS.findIndex(s => s.id === sectionId);
   if (idx >= 0) {
     navigateTo(idx);
+    closeMobileMenu();
   }
 });
 
@@ -243,6 +245,24 @@ SECTIONS.forEach((s, i) => {
     // Back to top visibility
     backToTop?.classList.toggle('visible', st > 200);
   }, { passive: true });
+});
+
+/* ============================================================
+   MOBILE HAMBURGER MENU
+   ============================================================ */
+function closeMobileMenu() {
+  navMenu?.classList.remove('open');
+  navToggle?.classList.remove('open');
+  navToggle?.setAttribute('aria-expanded', 'false');
+  document.body.classList.remove('menu-open');
+}
+
+navToggle?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const open = navMenu.classList.toggle('open');
+  navToggle.classList.toggle('open', open);
+  navToggle.setAttribute('aria-expanded', String(open));
+  document.body.classList.toggle('menu-open', open);
 });
 
 /* ============================================================
