@@ -1263,6 +1263,11 @@ body {
   font-size: 1.05rem;
   margin-bottom: 2px;
   color: #ffffff;
+  /* Override the global .inst-name gradient rule */
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  -webkit-text-fill-color: #ffffff;
   text-shadow: 0 1px 8px rgba(0,0,0,0.7);
   letter-spacing: 0.02em;
 }
