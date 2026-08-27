@@ -1179,7 +1179,6 @@ body {
   padding: 40px 0;
   background: transparent;
   border: none;
-  overflow: hidden;
   position: relative;
 }
 .institutes-marquee-heading {
@@ -1192,20 +1191,32 @@ body {
   margin-bottom: 24px;
   text-shadow: 0 0 24px rgba(255,255,255,0.5), 0 2px 8px rgba(0,0,0,0.8);
   -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+/* Track: the visible scrolling window with edge fade */
+.institutes-marquee-track {
+  overflow: hidden;
+  width: 100%;
+  /* Smooth fade at both edges */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
 }
 .institutes-marquee { display: flex; width: max-content; }
-.institutes-marquee-inner { 
-  display: flex; 
-  gap: 24px; 
-  animation: scrollX 38s linear infinite; 
-  padding: 0 12px; 
+.institutes-marquee-inner {
+  display: flex;
+  gap: 24px;
+  animation: scrollX 40s linear infinite;
+  padding: 8px 12px;
   will-change: transform;
   transform: translateZ(0);
 }
-.institutes-marquee:hover .institutes-marquee-inner { animation-play-state: paused; }
+/* FIX: Hover on the stable viewport track, not the moving content strip */
+.institutes-marquee-track:hover .institutes-marquee-inner {
+  animation-play-state: paused;
+}
 
 @keyframes scrollX {
-  0% { transform: translateX(0); }
+  0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
@@ -1226,10 +1237,11 @@ body {
   -webkit-backdrop-filter: blur(8px) saturate(120%);
 }
 .inst-marquee-card:hover {
-  transform: scale(1.05);
-  background: rgba(56, 189, 248, 0.1);
-  border-color: rgba(56,189,248,0.45);
-  box-shadow: 0 12px 36px rgba(56,189,248,0.25), inset 0 1px 0 rgba(255,255,255,0.12);
+  transform: scale(1.03) translateY(-2px);
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56,189,248,0.5);
+  box-shadow: 0 10px 30px rgba(56,189,248,0.22), inset 0 1px 0 rgba(255,255,255,0.12);
+  cursor: pointer;
 }
 .inst-logo-img {
   width: 48px; height: 48px;
