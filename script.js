@@ -662,34 +662,41 @@ function renderLOC(locData) {
   container.style.animation = '';
 }
 
+function extractGoogleDriveId(url) {
+  if (!url || typeof url !== 'string') return null;
+  const match = 
+    url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/i) ||
+    url.match(/drive\.google\.com\/.*[?&]id=([a-zA-Z0-9_-]+)/i) ||
+    url.match(/docs\.google\.com\/.*[?&]id=([a-zA-Z0-9_-]+)/i) ||
+    url.match(/drive\.google\.com\/d\/([a-zA-Z0-9_-]+)/i) ||
+    url.match(/googleusercontent\.com\/d\/([a-zA-Z0-9_-]+)/i);
+  return match ? match[1] : null;
+}
+
 function formatImageUrl(url) {
   if (!url || typeof url !== 'string') return '';
   url = url.trim();
   if (!url) return '';
 
-  // 1. Google Drive file view/share links -> direct CDN image endpoint
-  const driveFileMatch = url.match(/drive\.google\.com\/file\/d\/([^\/\?]+)/);
-  if (driveFileMatch && driveFileMatch[1]) {
-    return `https://lh3.googleusercontent.com/d/${driveFileMatch[1]}`;
+  const driveId = extractGoogleDriveId(url);
+  if (driveId) {
+    return `https://lh3.googleusercontent.com/d/${driveId}`;
   }
 
-  // 2. Google Drive open/uc links -> direct CDN image endpoint
-  const driveIdMatch = url.match(/drive\.google\.com\/(?:open|uc)\?(?:.*&)?id=([^&]+)/);
-  if (driveIdMatch && driveIdMatch[1]) {
-    return `https://lh3.googleusercontent.com/d/${driveIdMatch[1]}`;
+  if (url.includes('dropbox.com')) {
+    return url.replace('dl=0', 'raw=1').replace('www.dropbox.com', 'dl.dropboxusercontent.com');
   }
 
-  // 3. Dropbox links (dl=0 -> raw=1)
-  if (url.includes('dropbox.com') && url.includes('dl=0')) {
-    return url.replace('dl=0', 'raw=1');
+  if (url.includes('imgur.com/') && !url.includes('i.imgur.com/')) {
+    const imgurId = url.split('imgur.com/')[1].split('.')[0].replace('gallery/', '').replace('a/', '');
+    if (imgurId) return `https://i.imgur.com/${imgurId}.png`;
   }
 
-  // 4. Relative filenames without protocol
-  if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('./') && !url.startsWith('/')) {
-    return `./images/${url}`;
+  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:') || url.startsWith('./') || url.startsWith('/')) {
+    return url;
   }
 
-  return url;
+  return `./images/${url}`;
 }
 
 function getFallbackLogo(instName) {
@@ -713,14 +720,20 @@ function renderInstitutes(instData) {
   instData.forEach(inst => {
     const instName = typeof inst === 'string' ? inst : (inst.name || inst.institution || inst.institute || 'Participating Institute');
     const rawLogo = typeof inst === 'object' ? (inst.logo || inst.logo_url || inst.image || inst.icon) : null;
+    const driveId = extractGoogleDriveId(rawLogo);
     const formattedLogo = formatImageUrl(rawLogo);
     const fallbackLogo = getFallbackLogo(instName);
     const logoUrl = formattedLogo || fallbackLogo;
     const website = (typeof inst === 'object' && inst.website) ? inst.website : '#';
+    const secondTry = driveId ? `https://drive.google.com/thumbnail?id=${driveId}&sz=w800` : fallbackLogo;
 
     baseHtml += `
       <a href="${website}" target="_blank" rel="noopener noreferrer" class="inst-marquee-card">
-        <img src="${logoUrl}" class="inst-logo-img" alt="${instName} Logo" onerror="this.onerror=null;this.src='${fallbackLogo}';">
+        <img src="${logoUrl}" 
+             class="inst-logo-img" 
+             alt="${instName} Logo" 
+             referrerpolicy="no-referrer"
+             onerror="if(this.src!=='${secondTry}'){this.src='${secondTry}';}else{this.onerror=null;this.src='${fallbackLogo}';}">
         <div class="inst-name">${instName}</div>
       </a>`;
   });
@@ -866,7 +879,7 @@ function loadInitialData() {
 
 async function fetchDynamicData() {
   try {
-    const response = await fetch(API_URL);
+    const response = await fetch(API_URL, { cache: 'no-store' });
     if (!response.ok) throw new Error("Network response was not ok");
     const data = await response.json();
     
