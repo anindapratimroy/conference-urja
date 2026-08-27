@@ -485,9 +485,43 @@ body {
 
 .hero-meta { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-bottom: 36px; animation: fadeUp 0.8s ease 0.3s both; }
 .meta-card { display: flex; align-items: center; gap: 13px; padding: 14px 22px; border-radius: var(--r-md); text-align: left; min-width: 200px; }
+.meta-info-badge {
+  cursor: default;
+  background-color: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-top-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: none;
+}
+.meta-link-badge {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-top-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+.meta-link-badge:hover {
+  background-color: rgba(59, 130, 246, 0.12);
+  border-color: rgba(96, 165, 250, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.25);
+}
+.meta-ext-icon {
+  width: 11px;
+  height: 11px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 2px;
+  opacity: 0.85;
+}
 .meta-icon { width: 22px; height: 22px; color: var(--c-blue-lt); flex-shrink: 0; }
 .meta-icon svg { width: 22px; height: 22px; }
-.meta-label { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--c-text-muted); margin-bottom: 3px; font-weight: 600; }
+.meta-label { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--c-text-muted); margin-bottom: 3px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
 .meta-value { font-size: 1rem; font-weight: 700; color: var(--c-text); }
 
 .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; animation: fadeUp 0.8s ease 0.4s both; }
