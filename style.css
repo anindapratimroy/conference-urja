@@ -202,6 +202,35 @@ body {
 .btn-large { padding: 17px 44px; font-size: 1.05rem; }
 .btn-sm    { padding: 9px 20px; font-size: 0.84rem; }
 
+.btn-with-sub {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 36px;
+}
+.btn-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  line-height: 1.25;
+}
+.btn-main-text {
+  font-weight: 800;
+  font-size: 1.02rem;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.btn-sub-text {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: rgba(224, 242, 254, 0.95);
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+  text-transform: none;
+}
+
 /* ── NAVBAR ───────────────────────────────────────────────────────────────── */
 .navbar {
   position: fixed;
