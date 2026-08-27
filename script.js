@@ -899,3 +899,58 @@ async function fetchDynamicData() {
 // Start dynamic fetch in background
 fetchDynamicData();
 
+
+/* ============================================================
+   LIGHTBOX
+   ============================================================ */
+(function initLightbox() {
+  const overlay   = document.getElementById('lightboxOverlay');
+  const backdrop  = document.getElementById('lightboxBackdrop');
+  const closeBtn  = document.getElementById('lightboxClose');
+  const img       = document.getElementById('lightboxImg');
+  const caption   = document.getElementById('lightboxCaption');
+
+  if (!overlay || !img) return;
+
+  function openLightbox(src, alt, cap) {
+    img.src = src;
+    img.alt = alt || '';
+    caption.textContent = cap || alt || '';
+    caption.style.display = cap || alt ? '' : 'none';
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    overlay.focus();
+  }
+
+  function closeLightbox() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    // Clear src after transition to free memory
+    setTimeout(() => { img.src = ''; }, 350);
+  }
+
+  // Delegate click to all .lightbox-trigger images (incl. dynamically added ones)
+  document.addEventListener('click', function(e) {
+    const trigger = e.target.closest('img.lightbox-trigger');
+    if (trigger) {
+      openLightbox(
+        trigger.src,
+        trigger.alt,
+        trigger.dataset.caption || trigger.alt
+      );
+    }
+  });
+
+  // Close on backdrop click
+  backdrop.addEventListener('click', closeLightbox);
+
+  // Close on close button click
+  closeBtn.addEventListener('click', closeLightbox);
+
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('active')) {
+      closeLightbox();
+    }
+  });
+})();

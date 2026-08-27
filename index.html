@@ -557,10 +557,10 @@
             </div>
             <div class="venue-campus-slider">
               <div class="campus-slide active-slide" id="campus-s1">
-                <img src="./images/iiti_auditorium.jpg" alt="IIT Indore Nalanda Auditorium" class="campus-photo" loading="lazy" />
+                <img src="./images/iiti_auditorium.jpg" alt="IIT Indore Nalanda Auditorium" class="campus-photo lightbox-trigger" data-caption="Nalanda Auditorium · IIT Indore, Simrol Campus" loading="lazy" />
               </div>
               <div class="campus-slide" id="campus-s2">
-                <img src="./images/iiti_night.jpg" alt="IIT Indore Academic Block at night" class="campus-photo" loading="lazy" />
+                <img src="./images/iiti_night.jpg" alt="IIT Indore Academic Block at night" class="campus-photo lightbox-trigger" data-caption="Academic Block at Night · IIT Indore, Simrol Campus" loading="lazy" />
               </div>
               <div class="campus-caption">IIT Indore Campus &bull; Simrol, Madhya Pradesh</div>
             </div>
@@ -577,6 +577,18 @@
   <button class="back-to-top" id="backToTop" aria-label="Back to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
   </button>
+
+  <!-- ── LIGHTBOX MODAL ──────────────────────────────────────────────────── -->
+  <div class="lightbox-overlay" id="lightboxOverlay" role="dialog" aria-modal="true" aria-label="Image viewer" tabindex="-1">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close image viewer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+    <div class="lightbox-content">
+      <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+      <p class="lightbox-caption" id="lightboxCaption"></p>
+    </div>
+  </div>
 
   <!-- ══ FOOTER TEMPLATE ════════════════════════════════════════════════════ -->
   <template id="footer-template">
