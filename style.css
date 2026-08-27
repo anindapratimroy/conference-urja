@@ -20,15 +20,15 @@
   --c-text-muted:  rgba(255,255,255,0.78);
   --c-text-faint:  rgba(255,255,255,0.55);
 
-  /* Glass system — Ultra-Transparent Liquid Glass */
-  --glass-bg:        rgba(255, 255, 255, 0.015);
-  --glass-bg-hover:  rgba(255, 255, 255, 0.045);
-  --glass-border:    rgba(255, 255, 255, 0.2);
+  /* Glass system — Pure Crystal Liquid Glass (100% See-Through) */
+  --glass-bg:        rgba(255, 255, 255, 0.008);
+  --glass-bg-hover:  rgba(255, 255, 255, 0.035);
+  --glass-border:    rgba(255, 255, 255, 0.22);
   --glass-border-b:  rgba(96, 165, 250, 0.6);
-  --glass-blur:      blur(10px) saturate(150%);
-  --glass-shadow:    0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 1px 0 rgba(255, 255, 255, 0.35);
-  --glass-hover:     0 16px 40px rgba(59, 130, 246, 0.28), inset 0 1px 2px 0 rgba(255, 255, 255, 0.5);
-  --glass-sheen:     linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.005) 40%, rgba(255, 255, 255, 0.0) 70%, rgba(255, 255, 255, 0.015) 100%);
+  --glass-blur:      blur(12px) saturate(160%);
+  --glass-shadow:    0 4px 16px rgba(0, 0, 0, 0.1), inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
+  --glass-hover:     0 12px 32px rgba(59, 130, 246, 0.25), inset 0 1px 2px 0 rgba(255, 255, 255, 0.6);
+  --glass-sheen:     linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.002) 40%, rgba(255, 255, 255, 0.0) 70%, rgba(255, 255, 255, 0.01) 100%);
 
   /* Noise */
   --noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
@@ -97,14 +97,12 @@ body {
 /* ── GLASS CARD ───────────────────────────────────────────────────────────── */
 .glass-card {
   background-color: var(--glass-bg);
-  background-image: 
-    var(--glass-sheen), 
-    var(--noise);
+  background-image: var(--glass-sheen);
   border: 1px solid var(--glass-border);
-  border-top-color: rgba(255, 255, 255, 0.5);
+  border-top-color: rgba(255, 255, 255, 0.55);
   border-left-color: rgba(255, 255, 255, 0.35);
-  border-bottom-color: rgba(255, 255, 255, 0.18);
-  border-right-color: rgba(255, 255, 255, 0.18);
+  border-bottom-color: rgba(255, 255, 255, 0.15);
+  border-right-color: rgba(255, 255, 255, 0.15);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border-radius: var(--r-lg);
@@ -550,8 +548,8 @@ body {
 .highlight { color: var(--c-blue-lt); font-weight: 700; }
 .overview-body { font-size: 1rem; line-height: 1.85; color: var(--c-text-body); margin-bottom: 14px; overflow-wrap: break-word; word-break: break-word; white-space: pre-line; }
 .overview-highlights { display: flex; flex-direction: column; gap: 12px; margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--glass-border); }
-.highlight-item { display: flex; align-items: flex-start; gap: 14px; padding: 13px 16px; border-radius: var(--r-md); background-color: rgba(255,255,255,0.04); background-image: var(--noise); border: 1px solid var(--glass-border); transition: background var(--t-fast), border-color var(--t-fast); min-width: 0; overflow-wrap: break-word; word-break: break-word; }
-.highlight-item:hover { background-color: rgba(59,130,246,0.09); border-color: var(--glass-border-b); }
+.highlight-item { display: flex; align-items: flex-start; gap: 14px; padding: 13px 16px; border-radius: var(--r-md); background-color: rgba(255,255,255,0.012); border: 1px solid var(--glass-border); transition: background var(--t-fast), border-color var(--t-fast); min-width: 0; overflow-wrap: break-word; word-break: break-word; }
+.highlight-item:hover { background-color: rgba(59,130,246,0.06); border-color: var(--glass-border-b); }
 .hl-icon { font-size: 1.5rem; flex-shrink: 0; }
 .highlight-item strong { display: block; font-size: 1rem; font-weight: 700; color: var(--c-text); margin-bottom: 2px; }
 .highlight-item span { font-size: 0.93rem; color: var(--c-text-muted); overflow-wrap: break-word; word-break: break-word; }
@@ -732,9 +730,9 @@ body {
 .member-card { 
   display: flex; align-items: center; gap: 15px; padding: 18px; cursor: default;
   background-color: var(--glass-bg);
-  background-image: var(--glass-sheen), var(--noise);
+  background-image: var(--glass-sheen);
   border: 1px solid var(--glass-border);
-  border-top-color: rgba(255, 255, 255, 0.45);
+  border-top-color: rgba(255, 255, 255, 0.5);
   border-left-color: rgba(255, 255, 255, 0.3);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
@@ -790,11 +788,11 @@ body {
 .register-item { 
   display: flex; gap: 16px; padding: 24px; height: 100%; box-sizing: border-box; 
   border-radius: var(--r-md); 
-  background-color: rgba(255,255,255,0.03); 
-  background-image: var(--glass-sheen), var(--noise); 
+  background-color: var(--glass-bg); 
+  background-image: var(--glass-sheen); 
   border: 1px solid var(--glass-border); 
-  border-top-color: rgba(255,255,255,0.4);
-  border-left-color: rgba(255,255,255,0.25);
+  border-top-color: rgba(255,255,255,0.5);
+  border-left-color: rgba(255,255,255,0.3);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   box-shadow: var(--glass-shadow);
@@ -1514,9 +1512,9 @@ img.lightbox-trigger:hover {
   overflow: hidden;
   height: 100%;
   background-color: var(--glass-bg);
-  background-image: var(--glass-sheen), var(--noise);
+  background-image: var(--glass-sheen);
   border: 1px solid var(--glass-border);
-  border-top-color: rgba(255, 255, 255, 0.45);
+  border-top-color: rgba(255, 255, 255, 0.5);
   border-left-color: rgba(255, 255, 255, 0.3);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
