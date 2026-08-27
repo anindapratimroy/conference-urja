@@ -623,7 +623,8 @@ function renderSOC(socData) {
   }
   
   const itemCount = (socData && socData.length > 0) ? socData.length : 1;
-  const repetitions = Math.max(2, Math.ceil(12 / itemCount));
+  let repetitions = Math.max(2, Math.ceil(12 / itemCount));
+  if (repetitions % 2 !== 0) repetitions += 1;
   
   let html = '';
   for(let i=0; i<repetitions; i++) {
@@ -649,7 +650,8 @@ function renderLOC(locData) {
   }
   
   const itemCount = (locData && locData.length > 0) ? locData.length : 1;
-  const repetitions = Math.max(2, Math.ceil(12 / itemCount));
+  let repetitions = Math.max(2, Math.ceil(12 / itemCount));
+  if (repetitions % 2 !== 0) repetitions += 1;
   
   let html = '';
   for(let i=0; i<repetitions; i++) {
@@ -739,7 +741,8 @@ function renderInstitutes(instData) {
   });
   
   const itemCount = instData.length;
-  const repetitions = Math.max(2, Math.ceil(12 / itemCount));
+  let repetitions = Math.max(4, Math.ceil(16 / itemCount));
+  if (repetitions % 2 !== 0) repetitions += 1;
   
   let html = '';
   for(let i=0; i<repetitions; i++) {
