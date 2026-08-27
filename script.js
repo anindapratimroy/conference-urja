@@ -662,13 +662,43 @@ function renderLOC(locData) {
   container.style.animation = '';
 }
 
+function formatImageUrl(url) {
+  if (!url || typeof url !== 'string') return '';
+  url = url.trim();
+  if (!url) return '';
+
+  // 1. Google Drive file view/share links -> direct CDN image endpoint
+  const driveFileMatch = url.match(/drive\.google\.com\/file\/d\/([^\/\?]+)/);
+  if (driveFileMatch && driveFileMatch[1]) {
+    return `https://lh3.googleusercontent.com/d/${driveFileMatch[1]}`;
+  }
+
+  // 2. Google Drive open/uc links -> direct CDN image endpoint
+  const driveIdMatch = url.match(/drive\.google\.com\/(?:open|uc)\?(?:.*&)?id=([^&]+)/);
+  if (driveIdMatch && driveIdMatch[1]) {
+    return `https://lh3.googleusercontent.com/d/${driveIdMatch[1]}`;
+  }
+
+  // 3. Dropbox links (dl=0 -> raw=1)
+  if (url.includes('dropbox.com') && url.includes('dl=0')) {
+    return url.replace('dl=0', 'raw=1');
+  }
+
+  // 4. Relative filenames without protocol
+  if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('./') && !url.startsWith('/')) {
+    return `./images/${url}`;
+  }
+
+  return url;
+}
+
 function getFallbackLogo(instName) {
   const nameLower = (instName || '').toLowerCase();
   if (nameLower.includes('iit') || nameLower.includes('indore')) return './images/iiti_logo.png';
   if (nameLower.includes('tifr') || nameLower.includes('tata')) return './images/tifr_logo.png';
   if (nameLower.includes('iucaa') || nameLower.includes('pune')) return './images/iucaa_logo.png';
   if (nameLower.includes('iist') || nameLower.includes('space') || nameLower.includes('thiruvananthapuram')) return './images/iist_logo.png';
-  return './images/iiti_logo.svg';
+  return './images/iiti_logo.png';
 }
 
 function renderInstitutes(instData) {
@@ -682,9 +712,10 @@ function renderInstitutes(instData) {
   let baseHtml = '';
   instData.forEach(inst => {
     const instName = typeof inst === 'string' ? inst : (inst.name || inst.institution || inst.institute || 'Participating Institute');
-    const customLogo = typeof inst === 'object' ? (inst.logo || inst.logo_url || inst.image || inst.icon) : null;
+    const rawLogo = typeof inst === 'object' ? (inst.logo || inst.logo_url || inst.image || inst.icon) : null;
+    const formattedLogo = formatImageUrl(rawLogo);
     const fallbackLogo = getFallbackLogo(instName);
-    const logoUrl = customLogo || fallbackLogo;
+    const logoUrl = formattedLogo || fallbackLogo;
     const website = (typeof inst === 'object' && inst.website) ? inst.website : '#';
 
     baseHtml += `
@@ -790,11 +821,12 @@ function renderSpeakers(speakersData) {
     const name = spk.name || 'Distinguished Speaker';
     const affil = spk.affiliation || spk.institution || spk.institute || spk.role || 'Invited Delegate';
     const topic = spk.topic || spk.talk_title || spk.title || '';
-    const photo = spk.photo || spk.image || spk.avatar || '';
+    const rawPhoto = spk.photo || spk.image || spk.avatar || '';
+    const photoUrl = formatImageUrl(rawPhoto);
 
     html += `
       <div class="speaker-card glass-card">
-        ${photo ? `<div class="speaker-avatar-img"><img src="${photo}" alt="${name}" loading="lazy"/></div>` : `<div class="speaker-avatar-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>`}
+        ${photoUrl ? `<div class="speaker-avatar-img"><img src="${photoUrl}" alt="${name}" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\\'speaker-avatar-ph\\'><svg viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'currentColor\\' stroke-width=\\'1.5\\'><path d=\\'M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2\\'/><circle cx=\\'12\\' cy=\\'7\\' r=\\'4\\'/></svg></div>'"/></div>` : `<div class="speaker-avatar-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>`}
         <div class="speaker-badge">Invited Delegate</div>
         <div class="speaker-name">${name}</div>
         <div class="speaker-affil">${affil}</div>
