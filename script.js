@@ -695,18 +695,22 @@ function formatImageUrl(url) {
   }
 
   if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:') || url.startsWith('./') || url.startsWith('/')) {
-    return url;
+    return encodeURI(url);
   }
 
-  return `./images/${url}`;
+  return `./images/${encodeURIComponent(url)}`;
 }
 
 function getFallbackLogo(instName) {
   const nameLower = (instName || '').toLowerCase();
+  if (nameLower.includes('barc') || nameLower.includes('bhabha') || nameLower.includes('atomic')) return './images/barc_logo.png';
+  if (nameLower.includes('isro') || nameLower.includes('space research')) return './images/isro_logo.svg';
   if (nameLower.includes('iit') || nameLower.includes('indore')) return './images/iiti_logo.png';
   if (nameLower.includes('tifr') || nameLower.includes('tata')) return './images/tifr_logo.png';
   if (nameLower.includes('iucaa') || nameLower.includes('pune')) return './images/iucaa_logo.png';
-  if (nameLower.includes('iist') || nameLower.includes('space') || nameLower.includes('thiruvananthapuram')) return './images/iist_logo.png';
+  if (nameLower.includes('iist') || nameLower.includes('thiruvananthapuram')) return './images/iist_logo.png';
+  if (nameLower.includes('prl') || nameLower.includes('physical research')) return './images/prl_logo.png';
+  if (nameLower.includes('sinp') || nameLower.includes('saha')) return './images/sinp_logo.png';
   return './images/iiti_logo.png';
 }
 
