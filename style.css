@@ -812,15 +812,12 @@ body {
 .register-note { margin-top: 12px; font-size: 0.88rem; color: var(--c-text-muted); }
 
 /* ── VENUE VIEW ───────────────────────────────────────────────────────────── */
-.venue-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
-.venue-info { display: flex; flex-direction: column; gap: 18px; }
+.venue-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: stretch; }
+.venue-info { display: flex; flex-direction: column; gap: 18px; height: 100%; }
 .venue-card { padding: 26px; }
 .venue-card-title { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: 800; color: var(--c-blue-lt); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }
 .venue-card-title svg { width: 17px; height: 17px; }
-.venue-address-text { font-size: 0.97rem; line-height: 1.9; color: var(--c-text-body); font-style: normal; margin-bottom: 20px; }
-.venue-directions-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--grad-primary); color: white; text-decoration: none; padding: 10px 20px; border-radius: var(--r-sm); font-size: 0.88rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; transition: transform var(--t-fast), box-shadow var(--t-fast); box-shadow: 0 4px 16px rgba(59,130,246,0.35); }
-.venue-directions-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(59,130,246,0.5); }
-.venue-directions-btn svg { width: 15px; height: 15px; }
+.venue-address-text { font-size: 0.97rem; line-height: 1.9; color: var(--c-text-body); font-style: normal; margin-bottom: 0; }
 .transport-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
 .transport-list li { display: flex; flex-direction: column; gap: 3px; }
 .transport-list strong { font-size: 0.88rem; font-weight: 800; color: var(--c-blue-lt); }
@@ -838,7 +835,7 @@ body {
 .campus-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(4,7,15,0.88)); padding: 12px 18px; font-size: 0.9rem; color: #ffffff; text-align: center; font-weight: 600; letter-spacing: 0.04em; }
 
 /* Map */
-.venue-map-wrapper { display: flex; flex-direction: column; gap: 14px; }
+.venue-map-wrapper { display: flex; flex-direction: column; gap: 14px; height: 100%; }
 .map-header { display: flex; align-items: center; gap: 14px; padding: 16px 20px; }
 .map-pin-anim { position: relative; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .pin-dot { width: 9px; height: 9px; background: var(--c-blue-lt); border-radius: 50%; box-shadow: 0 0 10px var(--c-blue); position: relative; z-index: 1; }
@@ -848,7 +845,7 @@ body {
 @keyframes pinPulse { 0%,100%{ transform: scale(0.8); opacity: 0.8; } 50%{ transform: scale(1.2); opacity: 0.3; } }
 .map-title { font-size: 1rem; font-weight: 700; color: var(--c-text); }
 .map-coords { font-size: 0.78rem; color: var(--c-blue-lt); font-family: var(--mono); }
-.map-frame-wrapper { border-radius: var(--r-lg); overflow: hidden; height: 380px; background: var(--glass-bg); border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow); }
+.map-frame-wrapper { flex: 1; min-height: 380px; border-radius: var(--r-lg); overflow: hidden; background: var(--glass-bg); border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow); }
 .google-map { width: 100%; height: 100%; display: block; border: none; }
 .map-open-link { text-align: center; }
 
