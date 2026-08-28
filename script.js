@@ -728,6 +728,7 @@ function renderInstitutes(instData) {
     const rawLogo = typeof inst === 'object' ? (inst.logo || inst.logo_url || inst.image || inst.icon || inst.url || inst.link) : null;
     const website = (typeof inst === 'object' && inst.website) ? inst.website : '#';
     
+    const fallbackLogo = getFallbackLogo(instName);
     const driveId = extractGoogleDriveId(rawLogo);
     let logoUrl = '';
     let try2 = '';
@@ -736,22 +737,25 @@ function renderInstitutes(instData) {
     if (driveId) {
       logoUrl = `https://lh3.googleusercontent.com/d/${driveId}`;
       try2 = `https://drive.google.com/thumbnail?id=${driveId}&sz=w800`;
-      try3 = `https://drive.google.com/uc?export=view&id=${driveId}`;
+      try3 = fallbackLogo;
     } else if (rawLogo && (rawLogo.startsWith('http://') || rawLogo.startsWith('https://') || rawLogo.startsWith('data:') || rawLogo.startsWith('./') || rawLogo.startsWith('/'))) {
       logoUrl = encodeURI(rawLogo);
+      try2 = fallbackLogo;
     } else if (rawLogo) {
       logoUrl = formatImageUrl(rawLogo);
+      try2 = fallbackLogo;
+    } else {
+      logoUrl = fallbackLogo;
     }
 
-    const imgHtml = logoUrl ? `
+    const imgHtml = `
         <img src="${logoUrl}" 
              class="inst-logo-img" 
              alt="${instName} Logo" 
              referrerpolicy="no-referrer"
-             data-try2="${try2}"
-             data-try3="${try3}"
-             onerror="if(this.dataset.tried!=='2' && this.dataset.try2){this.dataset.tried='2';this.src=this.dataset.try2;}else if(this.dataset.tried!=='3' && this.dataset.try3){this.dataset.tried='3';this.src=this.dataset.try3;}else{this.onerror=null;this.style.display='none';}">`
-      : `<div class="inst-logo-placeholder">${instName.charAt(0)}</div>`;
+             data-try2="${try2 || fallbackLogo}"
+             data-try3="${try3 || fallbackLogo}"
+             onerror="if(this.dataset.tried!=='2' && this.dataset.try2){this.dataset.tried='2';this.src=this.dataset.try2;}else if(this.dataset.tried!=='3' && this.dataset.try3){this.dataset.tried='3';this.src=this.dataset.try3;}else{this.onerror=null;}">`;
 
     baseHtml += `
       <a href="${website}" target="_blank" rel="noopener noreferrer" class="inst-marquee-card">
