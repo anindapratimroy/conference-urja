@@ -576,7 +576,7 @@ document.addEventListener('DOMContentLoaded', () => {
    PERSISTENT CACHING & INSTANT DATA HYDRATION
    ============================================================ */
 const API_URL = "https://script.google.com/macros/s/AKfycbxeeLobD2arY5YcmOc9ec28X4pj77WLgpLiKGacfKUhQ3xf_YmqH1tExM3SNrci0RqV/exec";
-const CACHE_KEY = "geant4_website_cache_v2";
+const CACHE_KEY = "geant4_website_cache_v4";
 const preloader = document.getElementById('preloader');
 
 const DEFAULT_DATA = {
@@ -735,9 +735,9 @@ function renderInstitutes(instData) {
     let try3 = '';
 
     if (driveId) {
-      logoUrl = `https://lh3.googleusercontent.com/d/${driveId}`;
-      try2 = `https://drive.google.com/thumbnail?id=${driveId}&sz=w800`;
-      try3 = fallbackLogo;
+      logoUrl = `https://drive.google.com/thumbnail?id=${driveId}&sz=w800`;
+      try2 = `https://lh3.googleusercontent.com/d/${driveId}`;
+      try3 = `https://drive.google.com/uc?export=view&id=${driveId}`;
     } else if (rawLogo && (rawLogo.startsWith('http://') || rawLogo.startsWith('https://') || rawLogo.startsWith('data:') || rawLogo.startsWith('./') || rawLogo.startsWith('/'))) {
       logoUrl = encodeURI(rawLogo);
       try2 = fallbackLogo;
