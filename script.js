@@ -718,28 +718,44 @@ function renderInstitutes(instData) {
   const containers = document.querySelectorAll('.institutes-marquee-inner');
   if (!containers || !containers.length) return;
 
-  if (!instData || instData.length === 0) {
+  if (!instData || !Array.isArray(instData) || instData.length === 0) {
     return;
   }
 
   let baseHtml = '';
   instData.forEach(inst => {
     const instName = typeof inst === 'string' ? inst : (inst.name || inst.institution || inst.institute || 'Participating Institute');
-    const rawLogo = typeof inst === 'object' ? (inst.logo || inst.logo_url || inst.image || inst.icon) : null;
-    const driveId = extractGoogleDriveId(rawLogo);
-    const formattedLogo = formatImageUrl(rawLogo);
-    const fallbackLogo = getFallbackLogo(instName);
-    const logoUrl = formattedLogo || fallbackLogo;
+    const rawLogo = typeof inst === 'object' ? (inst.logo || inst.logo_url || inst.image || inst.icon || inst.url || inst.link) : null;
     const website = (typeof inst === 'object' && inst.website) ? inst.website : '#';
-    const secondTry = driveId ? `https://drive.google.com/thumbnail?id=${driveId}&sz=w800` : fallbackLogo;
+    
+    const driveId = extractGoogleDriveId(rawLogo);
+    let logoUrl = '';
+    let try2 = '';
+    let try3 = '';
 
-    baseHtml += `
-      <a href="${website}" target="_blank" rel="noopener noreferrer" class="inst-marquee-card">
+    if (driveId) {
+      logoUrl = `https://lh3.googleusercontent.com/d/${driveId}`;
+      try2 = `https://drive.google.com/thumbnail?id=${driveId}&sz=w800`;
+      try3 = `https://drive.google.com/uc?export=view&id=${driveId}`;
+    } else if (rawLogo && (rawLogo.startsWith('http://') || rawLogo.startsWith('https://') || rawLogo.startsWith('data:') || rawLogo.startsWith('./') || rawLogo.startsWith('/'))) {
+      logoUrl = encodeURI(rawLogo);
+    } else if (rawLogo) {
+      logoUrl = formatImageUrl(rawLogo);
+    }
+
+    const imgHtml = logoUrl ? `
         <img src="${logoUrl}" 
              class="inst-logo-img" 
              alt="${instName} Logo" 
              referrerpolicy="no-referrer"
-             onerror="if(this.src!=='${secondTry}'){this.src='${secondTry}';}else{this.onerror=null;this.src='${fallbackLogo}';}">
+             data-try2="${try2}"
+             data-try3="${try3}"
+             onerror="if(this.dataset.tried!=='2' && this.dataset.try2){this.dataset.tried='2';this.src=this.dataset.try2;}else if(this.dataset.tried!=='3' && this.dataset.try3){this.dataset.tried='3';this.src=this.dataset.try3;}else{this.onerror=null;this.style.display='none';}">`
+      : `<div class="inst-logo-placeholder">${instName.charAt(0)}</div>`;
+
+    baseHtml += `
+      <a href="${website}" target="_blank" rel="noopener noreferrer" class="inst-marquee-card">
+        ${imgHtml}
         <div class="inst-name">${instName}</div>
       </a>`;
   });
