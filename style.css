@@ -784,7 +784,7 @@ body {
   box-shadow: var(--glass-shadow);
 }
 .register-glow { position: absolute; top: -80px; left: 50%; transform: translateX(-50%); width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(59,130,246,0.22), transparent 70%); pointer-events: none; }
-.register-info { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 0 0 36px; }
+.register-info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 0 0 36px; }
 .register-item { 
   display: flex; gap: 16px; padding: 24px; height: 100%; box-sizing: border-box; 
   border-radius: var(--r-md); 
