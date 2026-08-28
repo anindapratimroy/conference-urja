@@ -311,24 +311,21 @@ function initCountdown() {
       document.getElementById('cd-days').textContent  = '00';
       document.getElementById('cd-hours').textContent = '00';
       document.getElementById('cd-mins').textContent  = '00';
-      document.getElementById('cd-secs').textContent  = '00';
       return;
     }
     const d = Math.floor(diff / 86400000);
     const h = Math.floor((diff % 86400000) / 3600000);
     const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
     const dEl = document.getElementById('cd-days');
     if (dEl) {
       dEl.textContent  = String(d).padStart(2, '0');
       document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
       document.getElementById('cd-mins').textContent  = String(m).padStart(2, '0');
-      document.getElementById('cd-secs').textContent  = String(s).padStart(2, '0');
     }
   }
 
   tick();
-  setInterval(tick, 1000);
+  setInterval(tick, 30000);
 }
 
 /* ============================================================
